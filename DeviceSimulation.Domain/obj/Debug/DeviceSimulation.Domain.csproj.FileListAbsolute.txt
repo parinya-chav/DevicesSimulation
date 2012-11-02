@@ -1,0 +1,5 @@
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Domain\bin\Debug\DeviceSimulation.Domain.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Domain\bin\Debug\DeviceSimulation.Domain.pdb
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Domain\obj\Debug\ResolveAssemblyReference.cache
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Domain\obj\Debug\DeviceSimulation.Domain.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Domain\obj\Debug\DeviceSimulation.Domain.pdb
