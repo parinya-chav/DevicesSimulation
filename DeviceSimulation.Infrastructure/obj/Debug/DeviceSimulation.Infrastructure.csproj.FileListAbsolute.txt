@@ -1,0 +1,8 @@
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infrastructure\bin\Debug\DeviceSimulation.Infrastructure.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infrastructure\bin\Debug\DeviceSimulation.Infrastructure.pdb
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infrastructure\bin\Debug\DeviceSimulation.Domain.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infrastructure\bin\Debug\EntityFramework.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infrastructure\bin\Debug\DeviceSimulation.Domain.pdb
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infrastructure\obj\Debug\ResolveAssemblyReference.cache
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infrastructure\obj\Debug\DeviceSimulation.Infrastructure.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infrastructure\obj\Debug\DeviceSimulation.Infrastructure.pdb

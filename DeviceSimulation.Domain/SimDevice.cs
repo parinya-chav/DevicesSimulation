@@ -7,8 +7,16 @@ namespace DeviceSimulation.Domain
 {
     public class SimDevice
     {
-        public string Imei { get; set; }
-        public string Description { get; set; }
-        public int SendTotal { get; set; }
+        public virtual SimDoc SimDoc { get; set; }
+
+        public virtual Int64 Id { get; set; }
+        public virtual string Imei { get; set; }
+        public virtual string Description { get; set; }
+        public byte Status { get; set; }
+        public bool IsCheckChoose { get; set; }
+        public bool IsFinish { get; set; }
+        public int SendTime { get; set; }
+        public int SendComplete { get; set; }
+        public virtual int SendTotal { get; set; }
     }
 }

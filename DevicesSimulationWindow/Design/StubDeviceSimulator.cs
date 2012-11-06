@@ -77,5 +77,18 @@ namespace DevicesSimulationWindow.Design
         }
 
 
+
+
+        public DeviceSimulation.Domain.SimDoc SimDoc
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace DeviceSimulation.Domain
     public interface IDeviceSimulator
     {
         string Name { get; set; }
+        SimDoc SimDoc { get; set; }
         IList<SimDevice> SimDevices { get; set; }
         void Start();
     }

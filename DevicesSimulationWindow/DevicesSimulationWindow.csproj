@@ -74,6 +74,7 @@
     <Compile Include="Design\IDeviceSimulatorService.cs" />
     <Compile Include="Design\StubDeviceSimulator.cs" />
     <Compile Include="Design\StubDeviceSimulatorService.cs" />
+    <Compile Include="Extensions\ImagePathConverter.cs" />
     <Compile Include="Model\AddSimDevicesModel.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
@@ -142,6 +143,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -152,6 +154,10 @@
     <ProjectReference Include="..\DeviceSimulation.Domain\DeviceSimulation.Domain.csproj">
       <Project>{C06CF66F-C277-4441-984D-C4009979870A}</Project>
       <Name>DeviceSimulation.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DevicesSimulation.Services\DeviceSimulation.Services.csproj">
+      <Project>{543CE681-5485-41D9-AD05-2B214A9BD887}</Project>
+      <Name>DeviceSimulation.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +192,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\Stop-Disabled-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Save-disable-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Save-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -12,6 +12,9 @@ namespace DevicesSimulationWindow.ViewModel
         public SimDeviceViewModel()
         { }
 
+        private Int64 _id;
+        private Int64 _idDoc;
+
         private bool _isCheckChoose;
         private string _imei;
         private string _description;
@@ -21,6 +24,30 @@ namespace DevicesSimulationWindow.ViewModel
         public int _sendComplete { get; set; }
         public int _sendTotal { get; set; }
 
+        public Int64 Id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+                RaisePropertyChanged("Id");
+            }
+        }
+        public Int64 IdDoc
+        {
+            get
+            {
+                return _idDoc;
+            }
+            set
+            {
+                _idDoc = value;
+                RaisePropertyChanged("IdDoc");
+            }
+        }
         public string Imei
         {
             get

@@ -7,11 +7,17 @@ using DevicesSimulationWindow.Model;
 using DevicesSimulationWindow.ViewModel;
 using System.Collections.ObjectModel;
 
+using DevicesSimulation.Services;
+using DeviceSimulation.Domain;
+using DevicesSimulation.Services.Model;
+
 namespace DevicesSimulationWindow.Design
 {
     public class StubDeviceSimulatorService : IDeviceSimulatorService
     {
         IPreDeviceSimulator _preDeviceSimulator;
+        IDeviceSimService _deviceSimService;
+
         public StubDeviceSimulatorService()
         {
             _preDeviceSimulator = new StubDeviceSimulator();
@@ -76,6 +82,43 @@ namespace DevicesSimulationWindow.Design
         public string SendPacket()
         {
             return "Send...";
+        }
+
+        public bool SaveSimDevices(ObservableCollection<SimDeviceViewModel> simDeviceViewModel)
+        {
+            bool result = false;
+            try
+            {   
+                SimDoc simDoc = new SimDoc();
+                simDoc.Description = "First Doc";
+
+                List<SimDevice> simDeviceList = new List<SimDevice>();
+                foreach (var item in simDeviceViewModel)
+                {
+                    simDeviceList.Add(new SimDevice
+                    {
+                        Imei = item.Imei,
+                        Description = item.Description,
+                        IsCheckChoose = item.IsCheckChoose,
+                        IsFinish = item.IsFinish,
+                        Status = item.Status,
+                        SendComplete = item.SendComplete,
+                        SendTotal = item.SendTotal,
+                        SendTime = item.SendTime
+                    });
+                }
+                DeviceSimulator deviceSimulator = new DeviceSimulator();
+                deviceSimulator.SimDoc = simDoc;
+                deviceSimulator.SimDevices = simDeviceList;
+
+                _deviceSimService = new DeviceSimService();
+                result = _deviceSimService.SaveSimDocs(deviceSimulator);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+            return result;
         }
     }
 }

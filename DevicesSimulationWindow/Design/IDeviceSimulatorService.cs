@@ -15,5 +15,6 @@ namespace DevicesSimulationWindow.Design
         IList<SimDeviceViewModel> AddDevices(int qtyDevices, int qtyXml, int sendTime);
         ObservableCollection<StatusWorkingModel> GetAllStatusWorking();
         string SendPacket();
+        bool SaveSimDevices(ObservableCollection<SimDeviceViewModel> simDeviceViewModel);
     }
 }

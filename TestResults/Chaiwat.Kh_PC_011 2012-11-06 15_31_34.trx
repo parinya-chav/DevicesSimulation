@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="c987dde2-4225-4ee1-bcc6-d5c55dc6966e" name="Chaiwat.Kh@PC_011 2012-11-06 15:31:34" runUser="CARPASSAD\Chaiwat.Kh" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="cf0010f8-2bca-4073-94b8-a3e721ba155c">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Chaiwat.Kh_PC_011 2012-11-06 15_31_34">
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Domain\bin\Debug\DeviceSimulation.Domain.dll" />
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulationApp.Test\lib\EntityFramework.dll" />
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infrastructure\bin\Debug\DeviceSimulation.Infrastructure.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2012-11-06T15:31:34.0972793+07:00" queuing="2012-11-06T15:31:34.2064450+07:00" start="2012-11-06T15:31:34.3623960+07:00" finish="2012-11-06T15:31:36.8732071+07:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="TestContext" storage="d:\github_new20120612\devicessimulation\devicessimulation\devicessimulationapp.test\bin\debug\devicessimulationapp.test.dll" id="c16d4fa8-81f0-0851-aabe-9646391f29a6">
+      <Execution id="678b4e45-f1e7-4456-9722-175bc5ee4ee8" />
+      <TestMethod codeBase="D:/github_new20120612/DevicesSimulation/DevicesSimulation/DevicesSimulationApp.Test/bin/Debug/DevicesSimulationApp.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="DevicesSimulationApp.Test.SQLiteTest, DevicesSimulationApp.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestContext" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="c16d4fa8-81f0-0851-aabe-9646391f29a6" executionId="678b4e45-f1e7-4456-9722-175bc5ee4ee8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="678b4e45-f1e7-4456-9722-175bc5ee4ee8" testId="c16d4fa8-81f0-0851-aabe-9646391f29a6" testName="TestContext" computerName="PC_011" duration="00:00:01.4796403" startTime="2012-11-06T15:31:34.7366784+07:00" endTime="2012-11-06T15:31:36.8264218+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="678b4e45-f1e7-4456-9722-175bc5ee4ee8">
+      <Output>
+        <StdOut>Id: 1, Description: First Simulator
+Id: 0, Description: First Simulator</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

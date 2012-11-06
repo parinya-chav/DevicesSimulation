@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="41bdabc0-ba55-477c-a8b0-20216248574b" name="Chaiwat.Kh@PC_011 2012-11-06 17:47:02" runUser="CARPASSAD\Chaiwat.Kh" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="cf0010f8-2bca-4073-94b8-a3e721ba155c">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Chaiwat.Kh_PC_011 2012-11-06 17_47_02">
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Domain\bin\Debug\DeviceSimulation.Domain.dll" />
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infrastructure\bin\Debug\DeviceSimulation.Infrastructure.dll" />
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulationApp.Test\lib\EntityFramework.dll" />
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulation.Services\bin\Debug\DevicesSimulation.Services.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2012-11-06T17:47:02.9013950+07:00" queuing="2012-11-06T17:47:03.0281622+07:00" start="2012-11-06T17:47:03.2658507+07:00" finish="2012-11-06T17:47:05.8962701+07:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="GetSimDoc" storage="d:\github_new20120612\devicessimulation\devicessimulation\devicessimulationapp.test\bin\debug\devicessimulationapp.test.dll" id="955de2de-ecbb-9cb4-d624-d9dcd49c2581">
+      <Execution id="bd3fe2a1-9e5d-44aa-bfc3-00f536520a17" />
+      <TestMethod codeBase="D:/github_new20120612/DevicesSimulation/DevicesSimulation/DevicesSimulationApp.Test/bin/Debug/DevicesSimulationApp.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="DevicesSimulationApp.Test.SQLiteInfra, DevicesSimulationApp.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetSimDoc" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="955de2de-ecbb-9cb4-d624-d9dcd49c2581" executionId="bd3fe2a1-9e5d-44aa-bfc3-00f536520a17" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="bd3fe2a1-9e5d-44aa-bfc3-00f536520a17" testId="955de2de-ecbb-9cb4-d624-d9dcd49c2581" testName="GetSimDoc" computerName="PC_011" duration="00:00:01.5865061" startTime="2012-11-06T17:47:03.5510769+07:00" endTime="2012-11-06T17:47:05.8487324+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bd3fe2a1-9e5d-44aa-bfc3-00f536520a17">
+      <Output>
+        <StdOut>Imei: SIM0066, Doc: 5, Status: 0
+Imei: SIM0021, Doc: 5, Status: 0
+Imei: SIM0256, Doc: 5, Status: 0
+Imei: SIM0344, Doc: 5, Status: 0
+Imei: SIM0752, Doc: 5, Status: 0
+Imei: SIM0318, Doc: 5, Status: 0
+Imei: SIM0763, Doc: 5, Status: 0
+Imei: SIM0122, Doc: 5, Status: 0
+Imei: SIM0350, Doc: 5, Status: 0
+Imei: SIM0630, Doc: 5, Status: 0</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

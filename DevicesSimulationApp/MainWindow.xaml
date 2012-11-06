@@ -1,0 +1,132 @@
+﻿<Window x:Class="DevicesSimulationApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Devices Simulation" Height="350" Width="700" Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.1,1" StartPoint="0.1,0">
+                        <GradientStop Color="#ff777777" Offset="0"/>
+                        <GradientStop Color="#ff232323" Offset=".4"/>
+                        <GradientStop Color="#ff000000" Offset=".4"/>
+                        <GradientStop Color="#ff232323" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="Opacity" Value=".9"></Setter>
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style x:Key="ReadOnlyFinish" TargetType="{x:Type DataGridRow}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Finish}" Value="True">
+                    <Setter Property="Item" Value="ReadOnly"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition ></RowDefinition>
+        </Grid.RowDefinitions>
+        <ToolBarTray Opacity=".9">
+            <ToolBar Opacity=".9">
+                <CheckBox Name="cmdSelectAll" Checked="cmdSelectAll_Checked" Unchecked="cmdSelectAll_Unchecked">SelectAll</CheckBox>
+            </ToolBar>
+            <ToolBar>                
+                <Button Name="cmdPause" ToolTip="Pause">
+                    <StackPanel>
+                        <Image Source="Icons/Pause-icon.png" />                        
+                    </StackPanel>
+                </Button>
+                <Button Name="cmdStop" ToolTip="Stop" Click="cmdStop_Click">
+                    <StackPanel>
+                        <Image Source="Icons/Stop-icon.png" />
+                    </StackPanel>
+                </Button>
+                <Button Name="cmdStart" ToolTip="Start" Click="cmdStart_Click">
+                    <StackPanel>
+                        <Image Source="Icons/Start-icon.png" />
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+            <ToolBar>
+                <Button Name="cmdAdd" ToolTip="Add" Click="cmdAdd_Click">
+                    <StackPanel>
+                        <Image Source="Icons/Drive-add-icon.png" />
+                    </StackPanel>
+                </Button>
+                <Button Name="cmdDelete" ToolTip="Delete" Click="cmdDelete_Click">
+                    <StackPanel>
+                        <Image Source="Icons/Drive-delete-icon.png" />
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+        <!--<StackPanel Grid.Row="1">
+            <Label x:Name="lblProgress" Content="0%"/>
+            <ProgressBar x:Name="progress" Height="25" IsIndeterminate="False"></ProgressBar>            
+        </StackPanel>-->
+        <DataGrid Grid.Row="1" Name="gridDevices" Margin="5" AutoGenerateColumns="False"
+                  CanUserAddRows="False" HorizontalAlignment="Center" CanUserReorderColumns="False"
+                  CellEditEnding="dataGrid_CellEditEnding" CurrentCellChanged="dataGrid_CurrentCellChanged"
+                  SourceUpdated="dataGrid_SourceUpdated">
+                        
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Binding="{Binding CheckChoose, UpdateSourceTrigger=PropertyChanged}" />
+
+                <DataGridTextColumn Header="Imei" MinWidth="200" IsReadOnly="True"
+                                    Binding="{Binding Path=Imei}" SortDirection="{x:Null}">                    
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Description" IsReadOnly="True"
+                                    Binding="{Binding Path=Description}" SortDirection="{x:Null}">
+                </DataGridTextColumn>
+                <DataGridComboBoxColumn Header="Status" x:Name="gridComboStatus" Width="*" IsReadOnly="True"
+                                        DisplayMemberPath="Description" SelectedValuePath="StatusID"
+                                        SelectedValueBinding="{Binding Path=Status}">                    
+                </DataGridComboBoxColumn>
+                
+                <DataGridTemplateColumn Width="*" Header="Time(s)" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=SendTime}" TextWrapping="Wrap" TextAlignment="Right"></TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="*" Header="Complete" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=SendComplete}" TextWrapping="Wrap" TextAlignment="Right"></TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="*" Header="Total" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=SendTotal}" TextAlignment="Right"></TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="*" Header="Finish" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Finish}" TextAlignment="Center"></TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+            
+        </DataGrid>
+    </Grid>
+</Window>
