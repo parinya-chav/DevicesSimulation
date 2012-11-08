@@ -6,6 +6,9 @@ namespace DevicesSimulation.Services
 {
     public interface IDeviceSimService
     {
-        bool SaveSimDocs(IDeviceSimulator deviceSimulator);
+        int SaveSimDocs(DeviceSimulator deviceSimulator);
+        IList<DeviceSimulator> GetAllDeviceSimulator();
+        DeviceSimulator GetByIdDeviceSimulator(int id);
+        DeviceSimulator GetByIdDeviceSimulatorIncludeChild(int id);
     }
 }

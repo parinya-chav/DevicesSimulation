@@ -152,61 +152,7 @@ namespace DevicesSimulationApp.Test
             }
         }
 
-        /// <summary>
-        /// Test EF1
-        /// </summary>
-        /// 
-        [TestMethod]
-        public void GetSimDoc()
-        {
-            using (var context = new DSContext())
-            {
-                var query = from i in context.SimDevices
-                            where i.SimDoc.Id == 5
-                            select i;
-                var itemList = query.ToList();
-                foreach (var item in itemList)
-                {
-                    Console.WriteLine("Imei: {0}, Doc: {1}, Status: {2}", item.Imei, item.SimDoc.Id, item.Status);
-                }
-
-            }
-        }
-
-        [TestMethod]
-        public void AddSimDoc()
-        {
-            using (var context = new DSContext())
-            {
-                context.SimDocs.Add(new SimDoc 
-                {
-                    Description = "TEST"
-                });
-                context.SaveChanges();
-            }
-        }
-
-        [TestMethod]
-        public void AddSimDevices()
-        {
-            using (var context = new DSContext())
-            {
-                var qury = from p in context.SimDocs select p;
-                var docList = qury.ToList();
-
-                Random ran = new Random();
-                foreach (var item in docList)
-                {
-                    context.SimDevices.Add(new SimDevice
-                    {
-                        SimDoc = item,
-                        Imei = String.Format("000-000-{0}",ran.Next(0,999).ToString().PadLeft(3,'0')),
-                        Description = "Test"
-                    });
-                }
-                context.SaveChanges();   
-            }
-        }
+        
 
 
     }

@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\lib\FluentNHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight.WPF4">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Laurent Bugnion (GalaSoft)\Mvvm Light Toolkit\Binaries\WPF4\GalaSoft.MvvmLight.WPF4.dll</HintPath>
@@ -43,9 +46,23 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Laurent Bugnion (GalaSoft)\Mvvm Light Toolkit\Binaries\WPF4\GalaSoft.MvvmLight.Extras.WPF4.dll</HintPath>
     </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\lib\Iesi.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Laurent Bugnion (GalaSoft)\Mvvm Light Toolkit\Binaries\WPF4\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\lib\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=2.0.38.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Interactivity">
       <SpecificVersion>False</SpecificVersion>
@@ -71,27 +88,34 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Design\DesignDataService.cs" />
+    <Compile Include="Design\DeviceSimulatorServiceAgent.cs" />
     <Compile Include="Design\IDeviceSimulatorService.cs" />
-    <Compile Include="Design\StubDeviceSimulator.cs" />
     <Compile Include="Design\StubDeviceSimulatorService.cs" />
     <Compile Include="Extensions\ImagePathConverter.cs" />
     <Compile Include="Model\AddSimDevicesModel.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
+    <Compile Include="Model\DeviceSimulatorModel.cs" />
     <Compile Include="Model\IDataService.cs" />
-    <Compile Include="Model\IPreDeviceSimulator.cs" />
-    <Compile Include="Model\PreSimDevice.cs" />
     <Compile Include="Model\StatusWorkingModel.cs" />
+    <Compile Include="ViewModel\HeaderDevicesSimulatorViewModel.cs" />
     <Compile Include="ViewModel\AddSimDevicesViewModel.cs" />
     <Compile Include="ViewModel\DeviceSimulatorViewModel.cs" />
+    <Compile Include="ViewModel\LoadDeviceSimulatorViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SimDeviceViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\AddDeviceSimulatorNameView.xaml.cs">
+      <DependentUpon>AddDeviceSimulatorNameView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddSimDevicesView.xaml.cs">
       <DependentUpon>AddSimDevicesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DeviceSimulatorView.xaml.cs">
       <DependentUpon>DeviceSimulatorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoadDeviceSimulatorView.xaml.cs">
+      <DependentUpon>LoadDeviceSimulatorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SimDeviceView.xaml.cs">
       <DependentUpon>SimDeviceView.xaml</DependentUpon>
@@ -112,11 +136,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\AddDeviceSimulatorNameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AddSimDevicesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\DeviceSimulatorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoadDeviceSimulatorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -154,6 +186,10 @@
     <ProjectReference Include="..\DeviceSimulation.Domain\DeviceSimulation.Domain.csproj">
       <Project>{C06CF66F-C277-4441-984D-C4009979870A}</Project>
       <Name>DeviceSimulation.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DeviceSimulation.Infrastructure\DeviceSimulation.Infrastructure.csproj">
+      <Project>{D4247199-8A75-4064-B030-BCC959D6862B}</Project>
+      <Name>DeviceSimulation.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\DevicesSimulation.Services\DeviceSimulation.Services.csproj">
       <Project>{543CE681-5485-41D9-AD05-2B214A9BD887}</Project>
@@ -198,6 +234,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\Save-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Load-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Open-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\New-file-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

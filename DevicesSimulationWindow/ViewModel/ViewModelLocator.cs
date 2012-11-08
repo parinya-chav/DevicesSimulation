@@ -42,12 +42,14 @@ namespace DevicesSimulationWindow.ViewModel
             //    SimpleIoc.Default.Register<IDataService, DataService>();
             //}
 
-            SimpleIoc.Default.Register<IDeviceSimulatorService, StubDeviceSimulatorService>();
+            SimpleIoc.Default.Register<IDeviceSimulatorService, DeviceSimulatorServiceAgent>();
             
             SimpleIoc.Default.Register<DeviceSimulatorViewModel>();
             SimpleIoc.Default.Register<AddSimDevicesViewModel>();
             SimpleIoc.Default.Register<SimDeviceViewModel>();
             SimpleIoc.Default.Register<StatusWorkingModel>();
+            SimpleIoc.Default.Register<HeaderDevicesSimulatorViewModel>();
+            SimpleIoc.Default.Register<LoadDeviceSimulatorViewModel>();
         }
 
         /// <summary>

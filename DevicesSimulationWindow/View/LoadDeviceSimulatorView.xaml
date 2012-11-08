@@ -1,0 +1,35 @@
+﻿<Window x:Class="DevicesSimulationWindow.View.LoadDeviceSimulatorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="LoadDeviceSimulator" Height="250" Width="300">
+    <Grid Margin="5">
+        <StackPanel Margin="5,5,5,22">
+            <ListBox HorizontalContentAlignment="Stretch" SnapsToDevicePixels="True" MinHeight="150"
+                     ItemsSource="{Binding DeviceSimulatorList}"
+                     SelectedItem="{Binding SelectDeviceSim}"
+                     DisplayMemberPath="Description"
+                     SelectedValuePath="Id"
+                     >
+                
+                <ListBox.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="Control.Padding" Value="0"></Setter>
+                        <Style.Triggers>
+                            <Trigger Property="ListBoxItem.IsSelected" Value="True">
+                                <Setter Property="ListBoxItem.Background" Value="DarkRed" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Command="{Binding OkCommand}" Click="btnOK_Click">OK</Button>
+                <Button Grid.Column="1" Command="{Binding CancelCommand}" Click="btnCancel_Click">Cancel</Button>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

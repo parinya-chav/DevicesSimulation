@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="535308c3-6310-4f00-b19e-5b8a3b2ea639" name="Chaiwat.Kh@PC_011 2012-11-08 11:47:59" runUser="CARPASSAD\Chaiwat.Kh" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="cf0010f8-2bca-4073-94b8-a3e721ba155c">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Chaiwat.Kh_PC_011 2012-11-08 11_47_59">
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\lib\FluentNHibernate.dll" />
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\lib\System.Data.SQLite.Linq.dll" />
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\lib\Iesi.Collections.dll" />
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\lib\System.Data.SQLite.dll" />
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\lib\NHibernate.dll" />
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Domain\bin\Debug\DeviceSimulation.Domain.dll" />
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulation.Services\bin\Debug\DevicesSimulation.Services.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2012-11-08T11:47:59.1235066+07:00" queuing="2012-11-08T11:48:01.3830271+07:00" start="2012-11-08T11:48:01.7258509+07:00" finish="2012-11-08T11:48:46.9502647+07:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="GetByIdDeviceSimulatorService" storage="d:\github_new20120612\devicessimulation\devicessimulation\devicesimulation.service.test\bin\debug\devicesimulation.service.test.dll" id="e971bff1-d6d1-6033-936a-d5683f2ee255">
+      <Execution id="aad908de-973c-4adf-9d82-ac95af876b96" />
+      <TestMethod codeBase="D:/github_new20120612/DevicesSimulation/DevicesSimulation/DeviceSimulation.Service.Test/bin/Debug/DeviceSimulation.Service.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="DeviceSimulation.Service.Test.UnitTest1, DeviceSimulation.Service.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetByIdDeviceSimulatorService" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="e971bff1-d6d1-6033-936a-d5683f2ee255" executionId="aad908de-973c-4adf-9d82-ac95af876b96" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="aad908de-973c-4adf-9d82-ac95af876b96" testId="e971bff1-d6d1-6033-936a-d5683f2ee255" testName="GetByIdDeviceSimulatorService" computerName="PC_011" duration="00:00:43.2567866" startTime="2012-11-08T11:48:02.0063431+07:00" endTime="2012-11-08T11:48:46.6229818+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aad908de-973c-4adf-9d82-ac95af876b96">
+      <Output>
+        <StdOut>ID: 1, Description: XXXXX</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

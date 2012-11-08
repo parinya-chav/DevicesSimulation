@@ -9,23 +9,43 @@ using System.Collections.ObjectModel;
 
 using DevicesSimulation.Services;
 using DeviceSimulation.Domain;
-using DevicesSimulation.Services.Model;
 
 namespace DevicesSimulationWindow.Design
 {
     public class StubDeviceSimulatorService : IDeviceSimulatorService
     {
-        IPreDeviceSimulator _preDeviceSimulator;
-        IDeviceSimService _deviceSimService;
-
         public StubDeviceSimulatorService()
         {
-            _preDeviceSimulator = new StubDeviceSimulator();
+            
+        }
+        
+        private List<SimDeviceViewModel> PreSimDevices()
+        {
+            var simDeviceViewModel = new List<SimDeviceViewModel>();
+
+            string[] descs = { "James", "John", "Danny", "Michelle", "Tina", "Rachel", "Todd", "Elaine", "Tonya", "Derek", "Mike" };
+            string[] imei = { "SIM001A", "SIM0002", "SIM0003", "SIM000X", "SIM00TT", "SIM00YU", "SIM0088", "SIM00PP", "SIM0078", "SIM00WW", "SIM00QW" };
+
+            Random r2 = new Random();
+            Random r = new Random();
+            for (int i = 0; i < 10; i++)
+            {
+                int index = r.Next(0, 11);
+                SimDeviceViewModel p = new SimDeviceViewModel
+                {
+                    Imei = imei[index],
+                    Description = descs[index],
+                    SendTotal = r2.Next(10, 90),
+                };
+                simDeviceViewModel.Add(p);
+            }           
+
+            return simDeviceViewModel;
         }
 
         public ObservableCollection<SimDeviceViewModel> LoadAllSimDeviceViewModel()
         {
-            var preSimDevices = _preDeviceSimulator.PreSimDevices.ToList();
+            var preSimDevices = PreSimDevices();
             ObservableCollection<SimDeviceViewModel> simDeviceList = new ObservableCollection<SimDeviceViewModel>();
             preSimDevices.ForEach(i =>
             {
@@ -45,80 +65,69 @@ namespace DevicesSimulationWindow.Design
             return simDeviceList;
         }
 
+
+
         public IList<SimDeviceViewModel> AddDevices(int qtyDevices, int qtyXml, int sendTime)
         {
-            IList<SimDeviceViewModel> retSimDevices = new List<SimDeviceViewModel>();
-            Random r = new Random();
-            for (int i = 0; i < qtyDevices; i++)
-            {
-                var simDevice = new SimDeviceViewModel
-                {
-                    Imei = "SIM" + Convert.ToString(r.Next(0, 1000)).PadLeft(4, '0'),
-                    Description = "Test",
-                    SendTime = sendTime,
-                    SendTotal = qtyXml,
-                    Status = 0,
-                    IsCheckChoose = false,
-                    IsFinish = false,
-                    SendComplete = 0
-                };
-
-                retSimDevices.Add(simDevice);
-            }
-            return retSimDevices;
+            throw new NotImplementedException();
         }
-
 
         public ObservableCollection<StatusWorkingModel> GetAllStatusWorking()
         {
-            ObservableCollection<StatusWorkingModel> statusWorking = new ObservableCollection<StatusWorkingModel>();
-            statusWorking.Add(new StatusWorkingModel { StatusID = 0, Description="Inactive" });
-            statusWorking.Add(new StatusWorkingModel { StatusID = 1, Description = "Active" });
-
-            return statusWorking;
+            throw new NotImplementedException();
         }
-
 
         public string SendPacket()
         {
-            return "Send...";
+            throw new NotImplementedException();
         }
 
-        public bool SaveSimDevices(ObservableCollection<SimDeviceViewModel> simDeviceViewModel)
+        public bool SaveSimDevices(ObservableCollection<SimDeviceViewModel> simDeviceViewModel, HeaderDevicesSimulatorViewModel headerDevicesSimulatorViewModel)
         {
-            bool result = false;
-            try
-            {   
-                SimDoc simDoc = new SimDoc();
-                simDoc.Description = "First Doc";
+            throw new NotImplementedException();
+        }
 
-                List<SimDevice> simDeviceList = new List<SimDevice>();
-                foreach (var item in simDeviceViewModel)
-                {
-                    simDeviceList.Add(new SimDevice
-                    {
-                        Imei = item.Imei,
-                        Description = item.Description,
-                        IsCheckChoose = item.IsCheckChoose,
-                        IsFinish = item.IsFinish,
-                        Status = item.Status,
-                        SendComplete = item.SendComplete,
-                        SendTotal = item.SendTotal,
-                        SendTime = item.SendTime
-                    });
-                }
-                DeviceSimulator deviceSimulator = new DeviceSimulator();
-                deviceSimulator.SimDoc = simDoc;
-                deviceSimulator.SimDevices = simDeviceList;
+        public IList<DeviceSimulatorModel> GetAllDeviceSimulator()
+        {
+            throw new NotImplementedException();
+        }
 
-                _deviceSimService = new DeviceSimService();
-                result = _deviceSimService.SaveSimDocs(deviceSimulator);
-            }
-            catch (Exception ex)
-            {
-                result = false;
-            }
-            return result;
+        public IList<SimDeviceViewModel> getSimDevicesByDeviceSimulatorId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        DeviceSimulatorModel IDeviceSimulatorService.getSimDevicesByDeviceSimulatorId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public bool SaveCreateSimDevices(ObservableCollection<SimDeviceViewModel> simDeviceViewModel, HeaderDevicesSimulatorViewModel headerDevicesSimulatorViewModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool SaveChangeSimDevices(ObservableCollection<SimDeviceViewModel> simDeviceViewModel, HeaderDevicesSimulatorViewModel headerDevicesSimulatorViewModel)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        int IDeviceSimulatorService.SaveSimDevices(ObservableCollection<SimDeviceViewModel> simDeviceViewModel, HeaderDevicesSimulatorViewModel headerDevicesSimulatorViewModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IDeviceSimulatorService.SaveCreateSimDevices(ObservableCollection<SimDeviceViewModel> simDeviceViewModel, HeaderDevicesSimulatorViewModel headerDevicesSimulatorViewModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IDeviceSimulatorService.SaveChangeSimDevices(ObservableCollection<SimDeviceViewModel> simDeviceViewModel, HeaderDevicesSimulatorViewModel headerDevicesSimulatorViewModel)
+        {
+            throw new NotImplementedException();
         }
     }
 }

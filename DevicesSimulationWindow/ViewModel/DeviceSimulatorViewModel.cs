@@ -27,6 +27,9 @@ namespace DevicesSimulationWindow.ViewModel
         SimDeviceViewModel _selectedSimDevice;
 
         AddSimDevicesViewModel _addSimDevicesViewModel;
+        HeaderDevicesSimulatorViewModel _headerDevicesSimulatorViewModel;
+        LoadDeviceSimulatorViewModel _loadDeviceSimulatorViewModel;
+
         ObservableCollection<StatusWorkingModel> _statusWorkingList;
 
         RelayCommand showAddCommand;
@@ -35,20 +38,26 @@ namespace DevicesSimulationWindow.ViewModel
         RelayCommand pauseCommand;
         RelayCommand stopCommand;
         RelayCommand saveCommand;
+        RelayCommand openCommand;
+        RelayCommand newCommand;
 
-        bool selectAllIsChecked;
-
+        bool _isSelectAll;
+        private string _iconSaveProperty;
         private string _iconStartProperty;
         private string _iconPauseProperty;
         private string _iconStopProperty;
-
+        bool _isChange;
         public DeviceSimulatorViewModel(IDeviceSimulatorService deviceSimulatorService, 
                                         AddSimDevicesViewModel addSimDevicesViewModel,
-                                        SimDeviceViewModel simDeviceViewModel)
+                                        SimDeviceViewModel simDeviceViewModel,
+                                        HeaderDevicesSimulatorViewModel addDevicesSimulatorNameViewModel,
+                                        LoadDeviceSimulatorViewModel loadDeviceSimulatorViewModel)
         {
             _deviceSimulatorService = deviceSimulatorService;
             _addSimDevicesViewModel = addSimDevicesViewModel;
             _selectedSimDevice = simDeviceViewModel;
+            _headerDevicesSimulatorViewModel = addDevicesSimulatorNameViewModel;
+            _loadDeviceSimulatorViewModel = loadDeviceSimulatorViewModel;
 
             //Default Add device win
             _addSimDevicesViewModel.Qty = 10;
@@ -63,6 +72,7 @@ namespace DevicesSimulationWindow.ViewModel
             _statusWorkingList = deviceSimulatorService.GetAllStatusWorking();
             
             //Set pic control
+            _iconSaveProperty = "Save-disable-icon.png";
             IconStartProperty = "Start-Disabled-icon.png";
             IconPauseProperty = "Pause-Disabled-icon.png";
             IconStopProperty = "Stop-Disabled-icon.png";
@@ -74,7 +84,24 @@ namespace DevicesSimulationWindow.ViewModel
                 return !string.IsNullOrEmpty(SelectedSimDevice.Imei);
             }));
         }
-        
+
+        public string IconOpenProperty
+        {
+            get { return "Open-icon.png"; }
+        }
+        public string IconSaveProperty
+        {
+            get { return _iconSaveProperty; }
+            set
+            {
+                _iconSaveProperty = value;
+                RaisePropertyChanged("IconSaveProperty");
+            }
+        }
+        public string IconNewProperty
+        {
+            get { return "New-file-icon.png"; }            
+        }
         public string IconStartProperty
         {
             get { return _iconStartProperty; }
@@ -114,6 +141,7 @@ namespace DevicesSimulationWindow.ViewModel
             get { return _selectedSimDevice; }
             set { 
                 _selectedSimDevice = value;
+                _isChange = true;
                 RaisePropertyChanged("SelectedSimDevice");
             }
         }
@@ -128,10 +156,31 @@ namespace DevicesSimulationWindow.ViewModel
         }
         public bool SelectAllIsChecked
         {
-            get { return selectAllIsChecked; }
-            set { selectAllIsChecked = value; }
+            get { return _isSelectAll; }
+            set { _isSelectAll = value; }
         }
-        public RelayCommand SendCommand { get; private set; }        
+        public RelayCommand SendCommand { get; private set; }
+        public RelayCommand NewCommand
+        {
+            get
+            {
+                if (newCommand == null)
+                {
+                    newCommand = new RelayCommand(newCmd);
+                }
+                return newCommand;
+            }
+        }
+        public void Reset()
+        {
+            _simDeviceList.Clear();
+            _headerDevicesSimulatorViewModel.Reset();
+            _isChange = false;
+        }
+        private void newCmd()
+        {
+            Reset();
+        }
         public RelayCommand ShowAddViewCmd
         {
             get
@@ -161,11 +210,7 @@ namespace DevicesSimulationWindow.ViewModel
             {
                 if (pauseCommand == null)
                 {
-                    pauseCommand = new RelayCommand(Pause, new Func<bool>(()
-                        =>
-                        {
-                            return false;
-                        }));
+                    pauseCommand = new RelayCommand(Pause, ValidPause);
                 }
                 return pauseCommand;
             }
@@ -176,11 +221,7 @@ namespace DevicesSimulationWindow.ViewModel
             {
                 if (stopCommand == null)
                 {
-                    stopCommand = new RelayCommand(Stop, new Func<bool>(()
-                        =>
-                    {
-                        return false;
-                    }));
+                    stopCommand = new RelayCommand(Stop, ValidStop);
                 }
                 return stopCommand;
             }
@@ -191,33 +232,141 @@ namespace DevicesSimulationWindow.ViewModel
             {
                 if (saveCommand == null)
                 {
-                    saveCommand = new RelayCommand(Save, new Func<bool>(()
-                        =>
-                    {
-                        return true;
-                    }));
+                    saveCommand = new RelayCommand(Save, validSave);
                 }
                 return saveCommand;
             }
         }
+        public RelayCommand OpenCommand
+        {
+            get
+            {
+                if (openCommand == null)
+                {
+                    openCommand = new RelayCommand(Open);
+                }
+                return openCommand;
+            }
+        }
+        public void Open()
+        {
+            var view = new LoadDeviceSimulatorView();
+            view.DataContext = _loadDeviceSimulatorViewModel;
+            _loadDeviceSimulatorViewModel.DeviceSimulatorList = _deviceSimulatorService.GetAllDeviceSimulator();
+            view.ShowDialog();
 
+            if (_loadDeviceSimulatorViewModel.IsChoose)
+            {
+                getSimDevicesByDeviceSimulatorId(_loadDeviceSimulatorViewModel.SelectDeviceSim.Id);                         
+            }
+            _loadDeviceSimulatorViewModel.Reset();
+        }
+        private void getSimDevicesByDeviceSimulatorId(int id)
+        {
+            var loadDevices = _deviceSimulatorService.getSimDevicesByDeviceSimulatorId(id);
+
+            _headerDevicesSimulatorViewModel.ID = loadDevices.Id;
+            _headerDevicesSimulatorViewModel.HeadName = loadDevices.Description;
+
+            SimDeviceList.Clear();
+            foreach (var item in loadDevices.SimDeviceViewModel)
+            {
+                SimDeviceList.Add(item);
+            }    
+        }
         public void Save()
         {
-            var success = _deviceSimulatorService.SaveSimDevices(SimDeviceList);
-            if (success)
+            int checkId = 0;
+
+            if (_headerDevicesSimulatorViewModel.ID == 0)
             {
-                MessageBox.Show("Save Success!!");
+                showAddDeviceSimulatorName();
+
+                if (_headerDevicesSimulatorViewModel.IsOK)
+                {
+                    checkId = _deviceSimulatorService.SaveSimDevices(SimDeviceList, _headerDevicesSimulatorViewModel);
+                    if (checkId != 0)
+                    {
+                        _headerDevicesSimulatorViewModel.ID = checkId;
+                        getSimDevicesByDeviceSimulatorId(checkId);
+                        MessageBox.Show("Save Success!!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Save Failure!!");
+                    }
+                }
+                else
+                {
+                    _headerDevicesSimulatorViewModel.Reset();
+                }
             }
             else
             {
-                MessageBox.Show("Save Failure!!");
+                checkId = _deviceSimulatorService.SaveSimDevices(SimDeviceList, _headerDevicesSimulatorViewModel);
+                if (checkId != 0)
+                {
+                    getSimDevicesByDeviceSimulatorId(checkId);
+                    MessageBox.Show("Save Success!!");
+                }
+                else
+                {
+                    MessageBox.Show("Save Failure!!");
+                }
             }
+        }
+        private bool validSave()
+        {
+            bool chk = false;
+
+            chk = _isChange;
+            
+            if(chk)
+                IconSaveProperty = "Save-icon.png";
+            else
+                IconSaveProperty = "Save-disable-icon.png";
+
+            return chk;
+        }
+        private void showAddDeviceSimulatorName()
+        {
+            var view = new AddDeviceSimulatorNameView();
+            view.DataContext = _headerDevicesSimulatorViewModel;
+            view.ShowDialog();
         }
         public void Stop()
         {
+            IsRunning = false;
         }
         public void Pause()
-        {            
+        {
+            IsRunning = false;
+        }
+        public bool ValidStop()
+        {
+            if (IsRunning)
+            {
+                IconStopProperty = "Stop-icon.png";
+                return true;
+            }
+            else
+            {
+                IconStopProperty = "Stop-Disabled-icon.png";
+                return false;
+            }
+        }
+        public bool ValidPause()
+        {
+            if (IsRunning)
+            {
+                IconPauseProperty = "Pause-icon.png";
+                return true;
+            }
+            else
+            {
+                IconPauseProperty = "Pause-Disabled-icon.png";
+                return false;
+            }
         }
         public bool ValidStart()
         {
@@ -232,48 +381,61 @@ namespace DevicesSimulationWindow.ViewModel
             IconStartProperty = "Start-Disabled-icon.png";
             return false;
         }
+
+        bool IsRunning = false;
+
         public void Start()
         {
-            try
+            IsRunning = true;
+
+            var simTask = new Task(() =>
             {
-                var itemsSelect = SimDeviceList.Where(i => i.IsCheckChoose == true);
-
-                var tasks = new List<Task>();
-                
-                foreach (var item in itemsSelect)
+                try
                 {
-                    item.IsCheckChoose = false;
-                    item.Status = 1;
+                    var itemsSelect = SimDeviceList.Where(i => i.IsCheckChoose == true);
 
-                    var selected = item;
+                    var tasks = new List<Task>();
 
-                    var task = new Task(() =>
-                        {
-                            while (selected.SendComplete < selected.SendTotal)
+                    foreach (var item in itemsSelect)
+                    {
+                        item.IsCheckChoose = false;
+                        item.Status = 1;
+
+                        var selected = item;
+
+                        var task = new Task(() =>
                             {
-                                selected.SendPacket();
-                                //Call service...
-                                var msg = _deviceSimulatorService.SendPacket();
+                                while (selected.SendComplete < selected.SendTotal && IsRunning)
+                                {
+                                    selected.SendPacket();
+                                    //Call service...
+                                    var msg = _deviceSimulatorService.SendPacket();
 
-                                selected.CheckSetAllComplete();
-                                selected.Description = msg;
+                                    selected.CheckSetAllComplete();
+                                    selected.Description = msg;
 
-                                Thread.Sleep(TimeSpan.FromSeconds(selected.SendTime));
-                            }
-                        });
+                                    Thread.Sleep(TimeSpan.FromSeconds(selected.SendTime));
+                                }
+                            });
 
-                    tasks.Add(task);
+                        tasks.Add(task);
+                    }
+
+                    foreach (var item in tasks)
+                    {
+                        item.Start();
+                    }
+
+                    Task.WaitAll(tasks.ToArray());
+                    IsRunning = false;
                 }
-
-                foreach (var item in tasks)
+                catch (Exception ex)
                 {
-                    item.Start();
+                    MessageBox.Show("Error: {0}", ex.Message);
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: {0}", ex.Message);
-            }
+            });
+
+            simTask.Start();
         }
 
         private void Send()
@@ -293,7 +455,7 @@ namespace DevicesSimulationWindow.ViewModel
                 {
                     SimDeviceList.Add(item);
                 }
-
+                _isChange = true;
             }
             _addSimDevicesViewModel.Reset();
         }

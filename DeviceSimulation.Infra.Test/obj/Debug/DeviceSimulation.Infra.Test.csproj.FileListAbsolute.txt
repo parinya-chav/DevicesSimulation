@@ -1,0 +1,15 @@
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infra.Test\bin\Debug\DeviceSimulation.Infra.Test.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infra.Test\bin\Debug\DeviceSimulation.Infra.Test.pdb
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infra.Test\bin\Debug\DeviceSimulation.Infrastructure.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infra.Test\bin\Debug\FluentNHibernate.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infra.Test\bin\Debug\Iesi.Collections.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infra.Test\bin\Debug\NHibernate.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infra.Test\bin\Debug\System.Data.SQLite.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infra.Test\bin\Debug\System.Data.SQLite.Linq.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infra.Test\bin\Debug\DeviceSimulation.Domain.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infra.Test\bin\Debug\DeviceSimulation.Infrastructure.pdb
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infra.Test\bin\Debug\DeviceSimulation.Domain.pdb
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infra.Test\obj\Debug\ResolveAssemblyReference.cache
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infra.Test\obj\Debug\DeviceSimulation.Infra.Test.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infra.Test\obj\Debug\DeviceSimulation.Infra.Test.pdb
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infra.Test\bin\Debug\SQLite.Designer.dll

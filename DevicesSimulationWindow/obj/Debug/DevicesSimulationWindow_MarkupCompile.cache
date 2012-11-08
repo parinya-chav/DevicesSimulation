@@ -10,11 +10,11 @@ none
 false
 CODE_ANALYSIS;DEBUG;TRACE
 D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulationWindow\App.xaml
-51687005146
+7624229469
 
-25-1134749803
-18963051327
-MainWindow.xaml;Skins\MainSkin.xaml;View\AddSimDevicesView.xaml;View\DeviceSimulatorView.xaml;View\SimDeviceView.xaml;
+28-1452511
+24-1419920050
+MainWindow.xaml;Skins\MainSkin.xaml;View\AddDeviceSimulatorNameView.xaml;View\AddSimDevicesView.xaml;View\DeviceSimulatorView.xaml;View\LoadDeviceSimulatorView.xaml;View\SimDeviceView.xaml;
 
 False
 

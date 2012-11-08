@@ -5,16 +5,19 @@ using System.Text;
 
 namespace DeviceSimulation.Domain
 {
-    public class DeviceSimulator : IDeviceSimulator
-    {
-        public string Name { get; set; }
-        public IList<SimDevice> SimDevices { get; set; }
+    public class DeviceSimulator : Domain
+    {        
+        public virtual IList<SimDevice> SimDevices { get; protected set; }
 
-
-
-        public void Start()
+        public DeviceSimulator()
         {
-            
+            SimDevices = new List<SimDevice>();
+        }
+
+        public virtual void AddSimDevice(SimDevice simDevice)
+        {
+            simDevice.DeviceSimulator = this;
+            SimDevices.Add(simDevice);
         }
     }
 }

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="f56ac54f-a17f-48c1-80af-0f2cf83c9649" name="Chaiwat.Kh@PC_011 2012-11-08 14:56:46" runUser="CARPASSAD\Chaiwat.Kh" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="cf0010f8-2bca-4073-94b8-a3e721ba155c">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Chaiwat.Kh_PC_011 2012-11-08 14_56_46">
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\lib\System.Data.SQLite.dll" />
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\lib\NHibernate.dll" />
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\lib\System.Data.SQLite.Linq.dll" />
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulation.Services\bin\Debug\DevicesSimulation.Services.dll" />
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\lib\Iesi.Collections.dll" />
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Domain\bin\Debug\DeviceSimulation.Domain.dll" />
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\DeviceSimulation.Infrastructure\bin\Debug\DeviceSimulation.Infrastructure.dll" />
+      <DeploymentItem filename="D:\github_new20120612\DevicesSimulation\DevicesSimulation\lib\FluentNHibernate.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2012-11-08T14:56:46.7329265+07:00" queuing="2012-11-08T14:56:48.8527721+07:00" start="2012-11-08T14:56:49.1956883+07:00" finish="2012-11-08T14:57:04.4866334+07:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="GetByIdDeviceSimulatorIncludeChild" storage="d:\github_new20120612\devicessimulation\devicessimulation\devicesimulation.service.test\bin\debug\devicesimulation.service.test.dll" id="693c2a50-610d-16d3-9d24-ab5c16257b12">
+      <Execution id="f893da6c-3c70-4e19-a766-353282934a5b" />
+      <TestMethod codeBase="D:/github_new20120612/DevicesSimulation/DevicesSimulation/DeviceSimulation.Service.Test/bin/Debug/DeviceSimulation.Service.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="DeviceSimulation.Service.Test.UnitTest1, DeviceSimulation.Service.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetByIdDeviceSimulatorIncludeChild" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="693c2a50-610d-16d3-9d24-ab5c16257b12" executionId="f893da6c-3c70-4e19-a766-353282934a5b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="f893da6c-3c70-4e19-a766-353282934a5b" testId="693c2a50-610d-16d3-9d24-ab5c16257b12" testName="GetByIdDeviceSimulatorIncludeChild" computerName="PC_011" duration="00:00:13.4636896" startTime="2012-11-08T14:56:49.4762561+07:00" endTime="2012-11-08T14:57:04.2372398+07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f893da6c-3c70-4e19-a766-353282934a5b">
+      <Output>
+        <StdOut>ID: 1, Description: XXXXX</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

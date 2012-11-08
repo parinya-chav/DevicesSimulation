@@ -12,11 +12,25 @@
         <StackPanel Margin="10">
             <ToolBarTray Opacity=".9">
                 <ToolBar>
-                    <Button ToolTip="Save" Command="{Binding SaveCommand}">
+                    <Button ToolTip="New" Command="{Binding NewCommand}">
                         <StackPanel>
-                            <Image Source="/Icons/Save-icon.png"></Image>
+                            <Image Source="/Icons/New-file-icon.png" />
+                            <!--<Image Source="{Binding Path=IconNewProperty, Converter={StaticResource ImagePathConverter}}"></Image>-->
                         </StackPanel>
                     </Button>
+                    <Button ToolTip="Load" Command="{Binding OpenCommand}">
+                        <StackPanel>
+                            <Image Source="/Icons/Load-icon.png" />
+                            <!--<Image Source="{Binding Path=IconOpenProperty, Converter={StaticResource ImagePathConverter}}"></Image>-->
+                        </StackPanel>
+                    </Button>
+                    
+                    <Button ToolTip="Save" Command="{Binding SaveCommand}">
+                        <StackPanel>
+                            <Image Source="/Icons/Save-icon.png" />
+                            <!--<Image Source="{Binding Path=IconSaveProperty, Converter={StaticResource ImagePathConverter}}"></Image>-->                            
+                        </StackPanel>
+                    </Button>                    
                 </ToolBar>
             </ToolBarTray>
             <ToolBarTray Opacity=".9">
@@ -39,25 +53,21 @@
                 <ToolBar>
                     <Button ToolTip="Start" Command="{Binding StartCommand}">
                         <StackPanel>
-                            <Image 
-                                   Source="{Binding Path=IconStartProperty, Converter={StaticResource ImagePathConverter}}">                                
-                                        <!--<DataTrigger Binding="{Binding NotFound}" Value="true">
-                                                <Setter Property="Source" Value="/Icons/Start-icon.png"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding NotFound}" Value="false">
-                                                <Setter Property="Source" Value="/Icons/Start-Disabled-icon.png"/>
-                                            </DataTrigger>-->                                       
-                            </Image>
+                            <Image Source="/Icons/Start-icon.png" />
+                            <!--<Image Source="{Binding Path=IconStartProperty, Converter={StaticResource ImagePathConverter}}">                                                                                                               
+                            </Image>-->
                         </StackPanel>
                     </Button>
                     <Button ToolTip="Pause" Command="{Binding PauseCommand}">
                         <StackPanel>
-                            <Image Source="{Binding Path=IconPauseProperty, Converter={StaticResource ImagePathConverter}}"/>
+                            <Image Source="/Icons/Pause-icon.png" />
+                            <!--<Image Source="{Binding Path=IconPauseProperty, Converter={StaticResource ImagePathConverter}}"/>-->
                         </StackPanel>
                     </Button>
                     <Button ToolTip="Stop" Command="{Binding StopCommand}">
                         <StackPanel>
-                            <Image Source="{Binding Path=IconStopProperty, Converter={StaticResource ImagePathConverter}}" />
+                            <Image Source="/Icons/Stop-icon.png" />
+                            <!--<Image Source="{Binding Path=IconStopProperty, Converter={StaticResource ImagePathConverter}}" />-->
                         </StackPanel>
                     </Button>                    
                 </ToolBar>
@@ -112,14 +122,6 @@
                             </Style>
                         </DataGridComboBoxColumn.EditingElementStyle>
                     </DataGridComboBoxColumn>
-
-
-
-                    <!--<DataGridComboBoxColumn Header="Status" x:Name="gridComboStatus" Width="*" IsReadOnly="True"
-                                        DisplayMemberPath="Description" SelectedValuePath="StatusID"
-                                        SelectedValueBinding="{Binding Path=Status}">
-                    </DataGridComboBoxColumn> -->
-
                     <DataGridTemplateColumn Width="*" Header="Time(s)" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

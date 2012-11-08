@@ -5,6 +5,10 @@ D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulation.Serv
 D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulation.Services\obj\Debug\DevicesSimulation.Services.pdb
 D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulation.Services\bin\Debug\DeviceSimulation.Domain.dll
 D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulation.Services\bin\Debug\DeviceSimulation.Infrastructure.dll
-D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulation.Services\bin\Debug\EntityFramework.dll
 D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulation.Services\bin\Debug\DeviceSimulation.Domain.pdb
 D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulation.Services\bin\Debug\DeviceSimulation.Infrastructure.pdb
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulation.Services\bin\Debug\FluentNHibernate.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulation.Services\bin\Debug\NHibernate.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulation.Services\bin\Debug\Iesi.Collections.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulation.Services\bin\Debug\System.Data.SQLite.dll
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulation.Services\bin\Debug\System.Data.SQLite.Linq.dll
