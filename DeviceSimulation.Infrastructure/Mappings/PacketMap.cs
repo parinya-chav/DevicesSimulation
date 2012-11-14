@@ -12,7 +12,7 @@ namespace DeviceSimulation.Infrastructure.Mappings
             Map(x => x.Description);
             Map(x => x.MessageType);
             Map(x => x.Row);
-            References(x => x.SimDevice);
+            References(x => x.SimDevice).Cascade.Delete();
         }
     }
 }

@@ -52,14 +52,11 @@ namespace DevicesSimulationWindow.Design
                 simDeviceList.Add(new SimDeviceViewModel
                 {
                     Imei = i.Imei,
-                    IsCheckChoose = i.IsCheckChoose,
-
                     Description = i.Description,
                     SendComplete = i.SendComplete,
                     SendTotal = i.SendTotal,
                     SendTime = i.SendTime,
                     Status = i.Status,
-                    IsFinish = i.IsFinish
                 });
             });
             return simDeviceList;
@@ -77,7 +74,7 @@ namespace DevicesSimulationWindow.Design
             throw new NotImplementedException();
         }
 
-        public string SendPacket()
+        public string SendPacket(SimDeviceViewModel simDeviceViewModel)
         {
             throw new NotImplementedException();
         }
@@ -126,6 +123,11 @@ namespace DevicesSimulationWindow.Design
         }
 
         int IDeviceSimulatorService.SaveChangeSimDevices(ObservableCollection<SimDeviceViewModel> simDeviceViewModel, HeaderDevicesSimulatorViewModel headerDevicesSimulatorViewModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteSimDevices(int deviceSimId, int simDeviceId)
         {
             throw new NotImplementedException();
         }

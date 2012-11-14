@@ -21,12 +21,13 @@ namespace DevicesSimulationWindow.Design
     {
         IDeviceSimService _deviceSimService;
 
+        ISession _session;
         public DeviceSimulatorServiceAgent()
         {
              ISessionFactory sessionFactory = CreateSessionFactory();
-             var session = sessionFactory.OpenSession();
-             
-             _deviceSimService = new DeviceSimService(session);
+             _session = sessionFactory.OpenSession();
+
+             _deviceSimService = new DeviceSimService(_session);
              
         }
 
@@ -63,8 +64,6 @@ namespace DevicesSimulationWindow.Design
                     SendTime = sendTime,
                     SendTotal = qtyXml,
                     Status = 0,
-                    IsCheckChoose = false,
-                    IsFinish = false,
                     SendComplete = 0
                 };
 
@@ -78,13 +77,33 @@ namespace DevicesSimulationWindow.Design
             ObservableCollection<StatusWorkingModel> statusWorking = new ObservableCollection<StatusWorkingModel>();
             statusWorking.Add(new StatusWorkingModel { StatusID = 0, Description = "Inactive" });
             statusWorking.Add(new StatusWorkingModel { StatusID = 1, Description = "Active" });
+            statusWorking.Add(new StatusWorkingModel { StatusID = 2, Description = "Pause" });
+            statusWorking.Add(new StatusWorkingModel { StatusID = 3, Description = "Finished" });
 
             return statusWorking;
         }
 
-        public string SendPacket()
+        Dictionary<int, SimDevice> _dicSimDevice = new Dictionary<int,SimDevice>();
+        object[] _deviceSim = new object[2];
+
+        public string SendPacket(SimDeviceViewModel simDeviceViewModel)
         {
-            return "Send...";
+            string ret = "";
+
+            var simDevice = _dicSimDevice[simDeviceViewModel.Id];
+
+            simDevice.SendComplete = simDeviceViewModel.SendComplete;
+            simDevice.Status = simDeviceViewModel.Status;
+            simDevice.SendTime = simDeviceViewModel.SendTime;
+
+            ret = _deviceSimService.SendPacket(simDevice);
+
+            lock (_session)
+            {
+                _session.Persist(simDevice);
+            }
+
+            return ret;
         }
 
         public int SaveSimDevices(ObservableCollection<SimDeviceViewModel> simDeviceViewModel, HeaderDevicesSimulatorViewModel headerDevicesSimulatorViewModel)
@@ -121,6 +140,7 @@ namespace DevicesSimulationWindow.Design
                     Id = item.Id,
                     Description = item.Description
                 });
+                
             }
             return deviceSimulatorModels;
         }
@@ -133,8 +153,14 @@ namespace DevicesSimulationWindow.Design
 
             if (list != null)
             {
+                _deviceSim[0] = list;
+                _deviceSim[1] = _dicSimDevice;
+
                 deviceSimulatorModel.Id = list.Id;
                 deviceSimulatorModel.Description = list.Description;
+                deviceSimulatorModel.Status = list.Status;
+                
+                _dicSimDevice.Clear();
 
                 foreach (var item in list.SimDevices)
                 {
@@ -146,11 +172,14 @@ namespace DevicesSimulationWindow.Design
                         SendTime = item.SendTime,
                         SendTotal = item.SendTotal,
                         Status = item.Status,
-                        IsCheckChoose = item.IsCheckChoose,
-                        IsFinish = item.IsFinish,
                         SendComplete = item.SendComplete,
 
                     });
+
+                    if (!_dicSimDevice.ContainsKey(item.Id))
+                    {
+                        _dicSimDevice.Add(item.Id, item);
+                    }
                 }
             }
             return deviceSimulatorModel;
@@ -169,6 +198,7 @@ namespace DevicesSimulationWindow.Design
             {
                 DeviceSimulator deviceSimulator = new DeviceSimulator();
                 deviceSimulator.Description = headerDevicesSimulatorViewModel.HeadName;
+                deviceSimulator.Status = headerDevicesSimulatorViewModel.Status;
 
                 foreach (var item in simDeviceViewModel)
                 {
@@ -176,8 +206,6 @@ namespace DevicesSimulationWindow.Design
                     {
                         Imei = item.Imei,
                         Description = item.Description,
-                        IsCheckChoose = item.IsCheckChoose,
-                        IsFinish = item.IsFinish,
                         Status = item.Status,
                         SendComplete = item.SendComplete,
                         SendTotal = item.SendTotal,
@@ -185,7 +213,8 @@ namespace DevicesSimulationWindow.Design
                     });
                 }
 
-                result = _deviceSimService.SaveSimDocs(deviceSimulator);
+                _session.SaveOrUpdate(deviceSimulator);
+                result = deviceSimulator.Id;
             }
             catch (Exception ex)
             {
@@ -199,47 +228,43 @@ namespace DevicesSimulationWindow.Design
             int result = 0;
             try
             {
-                var oldDevice = _deviceSimService.GetByIdDeviceSimulatorIncludeChild(headerDevicesSimulatorViewModel.ID);
-                if (headerDevicesSimulatorViewModel != null)
+                if (_deviceSim[0] != null)
                 {
-                    oldDevice.Description = headerDevicesSimulatorViewModel.HeadName;
-                    foreach (var itmNew in simDeviceViewModel)
+                    //var oldDevice = _deviceSimService.GetByIdDeviceSimulatorIncludeChild(headerDevicesSimulatorViewModel.ID);
+                    var oldDevice = (DeviceSimulator)_deviceSim[0];
+                    if (headerDevicesSimulatorViewModel != null)
                     {
-                        if (itmNew.Id != 0)
-                        {
-                            var oldSim = oldDevice.SimDevices.FirstOrDefault(p => p.Id == itmNew.Id);
-                            if (oldSim != null)
-                            {
-                                oldSim.Description = itmNew.Description;
-                                oldSim.IsCheckChoose = itmNew.IsCheckChoose;
-                                oldSim.IsFinish = itmNew.IsFinish;
-                                oldSim.SendComplete = itmNew.SendComplete;
-                                oldSim.SendTime = itmNew.SendTime;
-                                oldSim.SendTotal = itmNew.SendTotal;
-                                oldSim.Status = itmNew.Status;
-                            }
-                        }
-                        else
-                        {
-                            oldDevice.AddSimDevice(new SimDevice
-                            {
-                                Imei = itmNew.Imei,
-                                Description = itmNew.Description,
-                                IsCheckChoose = itmNew.IsCheckChoose,
-                                IsFinish = itmNew.IsFinish,
-                                Status = itmNew.Status,
-                                SendComplete = itmNew.SendComplete,
-                                SendTotal = itmNew.SendTotal,
-                                SendTime = itmNew.SendTime
-                            });
-                        }
-                    }
+                        oldDevice.Description = headerDevicesSimulatorViewModel.HeadName;
+                        oldDevice.Status = headerDevicesSimulatorViewModel.Status;
 
-                    result = _deviceSimService.SaveSimDocs(oldDevice);
-                }
-                else
-                {
-                    result = 0;
+                        foreach (var itmNew in simDeviceViewModel)
+                        {
+                            if (itmNew.Id != 0)
+                            {
+                                //var oldSim = oldDevice.SimDevices.FirstOrDefault(p => p.Id == itmNew.Id);
+                                var oldSim = _dicSimDevice[itmNew.Id];
+                                if (oldSim != null)
+                                {
+                                    oldSim.Description = itmNew.Description;
+
+                                    oldSim.SendComplete = itmNew.SendComplete;
+                                    oldSim.SendTime = itmNew.SendTime;
+                                    oldSim.SendTotal = itmNew.SendTotal;
+                                    oldSim.Status = itmNew.Status;
+                                }
+
+                                _session.Update(oldSim);
+                                _session.Flush();
+                            }
+
+                        }
+
+                        result = oldDevice.Id;
+                    }
+                    else
+                    {
+                        result = 0;
+                    }
                 }
             }
             catch (Exception ex)
@@ -248,5 +273,15 @@ namespace DevicesSimulationWindow.Design
             }
             return result;
         }
+        public bool DeleteSimDevices(int deviceSimId, int simDeviceId)
+        {
+            var deviceSim = _deviceSimService.GetByIdDeviceSimulatorIncludeChild(deviceSimId);
+
+            deviceSim.Remove(simDeviceId);
+            _session.Flush();
+            
+            return true;
+        }
+             
     }
 }

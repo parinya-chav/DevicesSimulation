@@ -10,6 +10,7 @@ namespace DevicesSimulationWindow.Model
     {
         private int _id;
         private string _description;
+        private byte _status;
 
         private IList<SimDeviceViewModel> _simDeviceViewModel;
 
@@ -37,6 +38,15 @@ namespace DevicesSimulationWindow.Model
             }
         }
 
+        public byte Status
+        {
+            get { return _status; }
+            set
+            {
+                _status = value;
+            }
+        }
+
         public IList<SimDeviceViewModel> SimDeviceViewModel
         {
             get { return _simDeviceViewModel; }
@@ -45,5 +55,7 @@ namespace DevicesSimulationWindow.Model
                 _simDeviceViewModel = value;
             }
         }
+
+
     }
 }

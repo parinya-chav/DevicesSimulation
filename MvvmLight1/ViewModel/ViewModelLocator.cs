@@ -60,6 +60,7 @@ namespace MvvmLight1.ViewModel
         /// </summary>
         public static void Cleanup()
         {
+
         }
     }
 }

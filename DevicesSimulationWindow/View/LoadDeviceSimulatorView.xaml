@@ -3,13 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="LoadDeviceSimulator" Height="250" Width="300">
     <Grid Margin="5">
-        <StackPanel Margin="5,5,5,22">
-            <ListBox HorizontalContentAlignment="Stretch" SnapsToDevicePixels="True" MinHeight="150"
-                     ItemsSource="{Binding DeviceSimulatorList}"
-                     SelectedItem="{Binding SelectDeviceSim}"
-                     DisplayMemberPath="Description"
-                     SelectedValuePath="Id"
-                     >
+        <StackPanel Margin="5,5,5,22" >
+            
+            <ListBox HorizontalContentAlignment="Stretch" SnapsToDevicePixels="True" Height="150"
+                        ItemsSource="{Binding DeviceSimulatorList}"
+                        SelectedItem="{Binding SelectDeviceSim}"
+                        DisplayMemberPath="Description"
+                        SelectedValuePath="Id"
+                        >
                 
                 <ListBox.ItemContainerStyle>
                     <Style>
@@ -23,10 +24,10 @@
                 </ListBox.ItemContainerStyle>
             </ListBox>
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+                            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
                 <Button Command="{Binding OkCommand}" Click="btnOK_Click">OK</Button>
                 <Button Grid.Column="1" Command="{Binding CancelCommand}" Click="btnCancel_Click">Cancel</Button>
             </Grid>

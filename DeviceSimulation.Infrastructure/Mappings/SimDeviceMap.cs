@@ -11,8 +11,6 @@ namespace DeviceSimulation.Infrastructure.Mappings
             Id(x => x.Id);
             Map(x => x.Imei);
             Map(x => x.Description);
-            Map(x => x.IsCheckChoose);
-            Map(x => x.IsFinish);
             Map(x => x.SendComplete);
             Map(x => x.SendTime);
             Map(x => x.SendTotal);
@@ -20,7 +18,7 @@ namespace DeviceSimulation.Infrastructure.Mappings
 
             References(x => x.DeviceSimulator);
             HasMany(x => x.Packet)
-                .Cascade.All()
+                .Cascade.AllDeleteOrphan()
                 .Inverse();
 
         }

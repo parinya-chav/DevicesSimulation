@@ -16,5 +16,10 @@ namespace DeviceSimulation.Domain.Queries
         {
             return from ds in q where ds.Id == id select ds;
         }
+
+        public static IQueryable<SimDevice> GetById(this IQueryable<SimDevice> q, int id)
+        {
+            return from ds in q where ds.Id == id select ds;
+        }
     }
 }

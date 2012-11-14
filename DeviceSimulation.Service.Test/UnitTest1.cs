@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DevicesSimulation.Services;
 using DeviceSimulation.Domain;
 using NHibernate;
+using NHibernate.Linq;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using DeviceSimulation.Infrastructure.Mappings;
@@ -62,7 +63,24 @@ namespace DeviceSimulation.Service.Test
              }
         }
 
-        private const string DbFile = "D:\\Lab\\LabSQLite\\firstProgram.db";
+        [TestMethod]
+        public void TestDelete()
+        {
+            ISessionFactory sessionFactory = CreateSessionFactory();
+            using (var session = sessionFactory.OpenSession())
+            {
+                session.FlushMode = FlushMode.Auto;
+                var q = from ds in session.Query<DeviceSimulator>()
+                        where ds.Id == 1
+                        select ds;
+
+                var ds1 = q.FirstOrDefault();
+                ds1.Remove(1);
+                session.Flush();
+            }
+        }
+
+        private const string DbFile = "D:\\github_new20120612\\DevicesSimulation\\DevicesSimulation\\DevicesSimulationWindow\\bin\\Debug\\firstProgram.db";
         private static ISessionFactory CreateSessionFactory()
         {
             return Fluently.Configure()

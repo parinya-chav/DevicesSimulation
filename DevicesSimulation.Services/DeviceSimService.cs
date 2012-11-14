@@ -19,26 +19,7 @@ namespace DevicesSimulation.Services
         public DeviceSimService(ISession session)
         {
             _session = session;
-        }
-
-
-        public int SaveSimDocs(DeviceSimulator deviceSimulator)
-        {
-            int result = 0;
-            try
-            {
-                _session.SaveOrUpdate(deviceSimulator);
-                result = deviceSimulator.Id;
-                
-            }
-            catch (Exception ex)
-            {
-                result = 0;
-                //throw ex;
-            }
-
-            return result;
-        }
+        }        
 
         public IList<DeviceSimulator> GetAllDeviceSimulator()
         {
@@ -72,5 +53,29 @@ namespace DevicesSimulation.Services
 
             return deviceSimulator;
         }
+
+
+        public string SendPacket(SimDevice simDevice)
+        {
+            simDevice.Description = string.Format("Send>>> Data[{0}]", simDevice.SendComplete.ToString());
+            
+            return simDevice.Description;
+        }
+
+        public SimDevice GetByIdSimDevice(int id)
+        {
+            var query = _session.Query<SimDevice>().GetById(id);
+            var simDevice = query.FirstOrDefault();
+            return simDevice;
+        }
+
+        public IList<Packet> GetPacketsByIdSimDevice(int id)
+        {
+            var query = from p in _session.Query<Packet>()
+                        where p.SimDevice.Id == id
+                        select p;
+            var packets = query.ToList();
+            return packets;
+        }     
     }
 }

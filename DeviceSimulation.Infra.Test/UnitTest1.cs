@@ -77,5 +77,6 @@ namespace DeviceSimulation.Infra.Test
             new SchemaExport(config)
                 .Create(false, true);
         }
+                
     }
 }

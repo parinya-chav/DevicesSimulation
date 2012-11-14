@@ -9,10 +9,11 @@ namespace DeviceSimulation.Infrastructure.Mappings
         {
             Table("DeviceSimulators");
             Id(x => x.Id);
+            Map(x => x.Status);
             Map(x => x.Description);
             HasMany(x => x.SimDevices)
                 .Inverse()
-                .Cascade.All();
+                .Cascade.AllDeleteOrphan();
         }
     }
 }

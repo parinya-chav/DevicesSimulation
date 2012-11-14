@@ -2,11 +2,43 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:DevicesSimulationWindow.Extensions"
-        Title="DeviceSimulatorView" Height="521" Width="600"
+        Title="DeviceSimulatorView" Height="365" Width="600"
         DataContext="{Binding Main, Source={StaticResource Locator}}" 
         xmlns:my="clr-namespace:DevicesSimulationWindow.View">
     <Window.Resources>
         <local:ImagePathConverter x:Key="ImagePathConverter"></local:ImagePathConverter>
+        
+        <Style TargetType="{x:Type DataGrid}">
+            <Style.Triggers>
+                <Trigger Property="IsReadOnly" Value="True">
+                    <Setter Property="RowBackground" Value="LightGray"/>
+                    <!--<Setter Property="Foreground" Value="Red"></Setter>
+                    <Setter Property="RowBackground" Value="LightGray"></Setter>--> 
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type DataGridRow}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Status}"  Value="1">
+                    <!--<Setter Property="Background" Value="LightGray"></Setter>-->
+                    <Setter Property="Foreground" Value="Red"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Status}"  Value="3">
+                    <!--<Setter Property="Background" Value="LightGray"></Setter>-->
+                    <Setter Property="Foreground" Value="Green"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style TargetType="{x:Type DataGridCell}">            
+            <Style.Triggers>
+                <Trigger Property="IsReadOnly" Value="True">
+                    <!--<Setter Property="Background" Value="LightGray"/>-->                    
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
     </Window.Resources>
     <Grid >
         <StackPanel Margin="10">
@@ -24,17 +56,10 @@
                             <!--<Image Source="{Binding Path=IconOpenProperty, Converter={StaticResource ImagePathConverter}}"></Image>-->
                         </StackPanel>
                     </Button>
-                    
-                    <Button ToolTip="Save" Command="{Binding SaveCommand}">
-                        <StackPanel>
-                            <Image Source="/Icons/Save-icon.png" />
-                            <!--<Image Source="{Binding Path=IconSaveProperty, Converter={StaticResource ImagePathConverter}}"></Image>-->                            
-                        </StackPanel>
-                    </Button>                    
                 </ToolBar>
             </ToolBarTray>
             <ToolBarTray Opacity=".9">
-                <ToolBar Opacity=".9">
+                <!--<ToolBar Opacity=".9">
                     <CheckBox Command="{Binding SelectAllCommand}" >
                         <CheckBox.Style>
                             <Style TargetType="{x:Type CheckBox}">
@@ -49,7 +74,7 @@
                             </Style>
                         </CheckBox.Style>
                     </CheckBox>                    
-                </ToolBar>
+                </ToolBar>-->
                 <ToolBar>
                     <Button ToolTip="Start" Command="{Binding StartCommand}">
                         <StackPanel>
@@ -72,12 +97,12 @@
                     </Button>                    
                 </ToolBar>
                 <ToolBar>
-                    <Button ToolTip="Add" Command="{Binding ShowAddViewCmd}">
+                    <Button ToolTip="Add" Command="{Binding AddCommand}">
                         <StackPanel>
                             <Image Source="/Icons/Drive-add-icon.png" />
                         </StackPanel>
                     </Button>
-                    <Button ToolTip="Delete">
+                    <Button ToolTip="Delete" Command="{Binding DeleteCommand}">
                         <StackPanel>
                             <Image Source="/Icons/Drive-delete-icon.png" />
                         </StackPanel>
@@ -86,27 +111,49 @@
             </ToolBarTray>
             
             <DataGrid AutoGenerateColumns="False" CanUserAddRows="False"                      
-                Height="250" 
-                      ItemsSource="{Binding SimDeviceList}" 
-                        SelectedItem="{Binding SelectedSimDevice}">
+                Height="250" ItemsSource="{Binding SimDeviceList}" IsReadOnly="{Binding IsRunning}"
+                        SelectedItem="{Binding SelectedSimDevice}"
+                      >
+                <DataGrid.InputBindings>
+                    <KeyBinding Key="Delete" Command="{Binding DeleteSimDeviceCommand}" />
+                </DataGrid.InputBindings>
                 
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Binding="{Binding IsCheckChoose, UpdateSourceTrigger=PropertyChanged}">
-                        
-                    </DataGridCheckBoxColumn>
+                    <!--<DataGridCheckBoxColumn Binding="{Binding IsCheckChoose, UpdateSourceTrigger=PropertyChanged}">                        
+                    </DataGridCheckBoxColumn>-->
+
                     <DataGridTextColumn Header="Imei" IsReadOnly="True"
                         Binding="{Binding Path=Imei}" SortDirection="{x:Null}">
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="Description" IsReadOnly="True"
+                    <DataGridTextColumn Header="Description" IsReadOnly="False"
                                     Binding="{Binding Path=Description}" SortDirection="{x:Null}">
                     </DataGridTextColumn>
+                    
+                    <DataGridTextColumn Header="Time(s)" Width="*" IsReadOnly="False"
+                                    Binding="{Binding Path=SendTime}" SortDirection="{x:Null}">
+                    </DataGridTextColumn>
+
+                    <DataGridTemplateColumn Width="*" Header="Complete" IsReadOnly="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate >
+                                <TextBlock Text="{Binding Path=SendComplete}" TextWrapping="Wrap" TextAlignment="Right"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="*" Header="Total" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=SendTotal}" TextAlignment="Right"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
                     <DataGridComboBoxColumn Header="Status" IsReadOnly="True"
                         SelectedValueBinding="{Binding Status}"
                         SelectedValuePath="StatusID"
-                        DisplayMemberPath="Description"
-                        >
+                        DisplayMemberPath="Description" >
                         <DataGridComboBoxColumn.ElementStyle>
                             <Style TargetType="ComboBox">
                                 <Setter Property="ItemsSource" Value="{Binding 
@@ -122,29 +169,6 @@
                             </Style>
                         </DataGridComboBoxColumn.EditingElementStyle>
                     </DataGridComboBoxColumn>
-                    <DataGridTemplateColumn Width="*" Header="Time(s)" IsReadOnly="True">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Path=SendTime}" TextWrapping="Wrap" TextAlignment="Right"></TextBlock>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTemplateColumn Width="*" Header="Complete" IsReadOnly="True">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Path=SendComplete}" TextWrapping="Wrap" TextAlignment="Right"></TextBlock>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTemplateColumn Width="*" Header="Total" IsReadOnly="True">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Path=SendTotal}" TextAlignment="Right"></TextBlock>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
 
                     <DataGridTemplateColumn Width="*" Header="Finish" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
@@ -157,7 +181,7 @@
                 </DataGrid.Columns>
                         
             </DataGrid>
-            <my:SimDeviceView DataContext="{Binding SelectedSimDevice}" />
+            <!--<my:SimDeviceView DataContext="{Binding SelectedSimDevice}" />-->
         </StackPanel>
     </Grid>
 </Window>

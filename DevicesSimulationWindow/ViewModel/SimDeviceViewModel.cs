@@ -14,11 +14,9 @@ namespace DevicesSimulationWindow.ViewModel
 
         private int _id;
 
-        private bool _isCheckChoose;
         private string _imei;
         private string _description;
         private byte _status;
-        public bool _isFinish { get; set; }
         public int _sendTime { get; set; }
         public int _sendComplete { get; set; }
         public int _sendTotal { get; set; }
@@ -71,30 +69,6 @@ namespace DevicesSimulationWindow.ViewModel
                 RaisePropertyChanged("Status");
             }
         }        
-        public bool IsCheckChoose 
-        {
-            get
-            {
-                return _isCheckChoose;
-            }
-            set
-            {
-                _isCheckChoose = value;
-                RaisePropertyChanged("IsCheckChoose");
-            }
-        }
-        public bool IsFinish
-        {
-            get
-            {
-                return _isFinish;
-            }
-            set
-            {
-                _isFinish = value;
-                RaisePropertyChanged("IsFinish");
-            }
-        }
         public int SendTime
         {
             get
@@ -136,11 +110,58 @@ namespace DevicesSimulationWindow.ViewModel
         {
             ++SendComplete;
         }
-
+                
         public void CheckSetAllComplete()
         {
             if (SendComplete == SendTotal)
-                IsFinish = true;
+            {
+                this.Finish();
+            }
+        }
+
+        public virtual bool Play()
+        {
+            if (Status == 0 || Status == 3)
+            {
+                Status = 1;
+                return true;
+            }
+            return false;
+        }
+       
+        public virtual bool Finish()
+        {
+            if (Status == 1)
+            {
+                Status = 3;
+                return true;
+            }
+            return false;
+        }
+
+        public virtual bool Pause()
+        {
+            if (Status == 1)
+            {
+                Status = 2;
+                return true;
+            }
+            if (Status == 2)
+            {
+                Status = 1;
+                return true;
+            }
+            return false;
+        }
+
+        public virtual bool Continue()
+        {
+            if (Status == 2)
+            {
+                Status = 1;
+                return true;
+            }
+            return false;
         }
     }
 }

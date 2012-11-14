@@ -72,8 +72,10 @@ namespace DevicesSimulationWindow.ViewModel
         }
         private bool validChoose()
         {
+            if(SelectDeviceSim != null)
+                return true;
 
-            return true;
+            return false;
         }
         private void choose()
         {

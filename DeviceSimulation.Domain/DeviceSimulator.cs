@@ -19,5 +19,15 @@ namespace DeviceSimulation.Domain
             simDevice.DeviceSimulator = this;
             SimDevices.Add(simDevice);
         }
+
+        public virtual void Remove(int simDeviceId)
+        {
+            var remove = SimDevices.Where(s => s.Id == simDeviceId).FirstOrDefault();
+            if (remove != null)
+            {
+                SimDevices.Remove(remove);
+            }
+        }
+
     }
 }

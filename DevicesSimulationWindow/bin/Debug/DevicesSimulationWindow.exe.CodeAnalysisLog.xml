@@ -12,8 +12,8 @@
          <Members>
           <Member Name="#.ctor()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Dispose objects before losing scope" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2012-11-08 10:51:01Z" FixCategory="DependsOnFix">
-             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulationWindow\Design" File="DeviceSimulatorServiceAgent.cs" Line="26">In method 'DeviceSimulatorServiceAgent.DeviceSimulatorServiceAgent()', call System.IDisposable.Dispose on object 'sessionFactory' before all references to it are out of scope.</Issue>
+            <Message TypeName="Dispose objects before losing scope" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2012-11-14 04:07:30Z" FixCategory="DependsOnFix">
+             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulationWindow\Design" File="DeviceSimulatorServiceAgent.cs" Line="27">In method 'DeviceSimulatorServiceAgent.DeviceSimulatorServiceAgent()', call System.IDisposable.Dispose on object 'sessionFactory' before all references to it are out of scope.</Issue>
             </Message>
            </Messages>
           </Member>
@@ -25,17 +25,17 @@
        <Types>
         <Type Name="DeviceSimulatorViewModel" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Members>
-          <Member Name="#.ctor(DevicesSimulationWindow.Design.IDeviceSimulatorService,DevicesSimulationWindow.ViewModel.AddSimDevicesViewModel,DevicesSimulationWindow.ViewModel.SimDeviceViewModel,DevicesSimulationWindow.ViewModel.HeaderDevicesSimulatorViewModel,DevicesSimulationWindow.ViewModel.LoadDeviceSimulatorViewModel)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+          <Member Name="#.ctor(DevicesSimulationWindow.Design.IDeviceSimulatorService,DevicesSimulationWindow.ViewModel.SimDeviceViewModel,DevicesSimulationWindow.ViewModel.HeaderDevicesSimulatorViewModel,DevicesSimulationWindow.ViewModel.LoadDeviceSimulatorViewModel)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2012-11-08 10:51:01Z" FixCategory="NonBreaking">
-             <Issue Certainty="95" Level="CriticalWarning" Path="D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulationWindow\ViewModel" File="DeviceSimulatorViewModel.cs" Line="385">'DeviceSimulatorViewModel.DeviceSimulatorViewModel(IDeviceSimulatorService, AddSimDevicesViewModel, SimDeviceViewModel, HeaderDevicesSimulatorViewModel, LoadDeviceSimulatorViewModel)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;DeviceSimulatorViewModel..ctor(IDeviceSimulatorService, AddSimDevicesViewModel, SimDeviceViewModel, HeaderDevicesSimulatorViewModel, LoadDeviceSimulatorViewModel)&#xD;&#xA;DeviceSimulatorViewModel.set_IconStartProperty(String):Void&#xD;&#xA;ObservableObject.RaisePropertyChanged(String):Void</Issue>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2012-11-14 04:07:30Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulationWindow\ViewModel" File="DeviceSimulatorViewModel.cs" Line="495">'DeviceSimulatorViewModel.DeviceSimulatorViewModel(IDeviceSimulatorService, SimDeviceViewModel, HeaderDevicesSimulatorViewModel, LoadDeviceSimulatorViewModel)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;DeviceSimulatorViewModel..ctor(IDeviceSimulatorService, SimDeviceViewModel, HeaderDevicesSimulatorViewModel, LoadDeviceSimulatorViewModel)&#xD;&#xA;DeviceSimulatorViewModel.set_IconStartProperty(String):Void&#xD;&#xA;ObservableObject.RaisePropertyChanged(String):Void</Issue>
             </Message>
            </Messages>
           </Member>
-          <Member Name="#Start()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+          <Member Name="#taskManage()" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Dispose objects before losing scope" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2012-11-08 10:51:01Z" FixCategory="DependsOnFix">
-             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulationWindow\ViewModel" File="DeviceSimulatorViewModel.cs" Line="391">In method 'DeviceSimulatorViewModel.Start()', call System.IDisposable.Dispose on object 'simTask' before all references to it are out of scope.</Issue>
+            <Message TypeName="Dispose objects before losing scope" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2012-11-14 04:07:30Z" FixCategory="DependsOnFix">
+             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="D:\github_new20120612\DevicesSimulation\DevicesSimulation\DevicesSimulationWindow\ViewModel" File="DeviceSimulatorViewModel.cs" Line="523">In method 'DeviceSimulatorViewModel.taskManage()', call System.IDisposable.Dispose on object 'simTask' before all references to it are out of scope.</Issue>
             </Message>
            </Messages>
           </Member>

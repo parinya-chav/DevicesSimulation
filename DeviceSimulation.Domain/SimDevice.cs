@@ -8,9 +8,6 @@ namespace DeviceSimulation.Domain
     public class SimDevice : Domain
     {
         public virtual string Imei { get; set; }
-        public virtual byte Status { get; set; }
-        public virtual bool IsCheckChoose { get; set; }
-        public virtual bool IsFinish { get; set; }
         public virtual int SendTime { get; set; }
         public virtual int SendComplete { get; set; }
         public virtual int SendTotal { get; set; }
@@ -22,6 +19,8 @@ namespace DeviceSimulation.Domain
         public SimDevice()
         {
             Packet = new List<Packet>();
+
+            Status = 0;//Inactive
         }
 
         public virtual void AddPacket(Packet packet)
@@ -29,5 +28,6 @@ namespace DeviceSimulation.Domain
             packet.SimDevice = this;
             Packet.Add(packet);
         }
+        
     }
 }

@@ -9,5 +9,6 @@ namespace DeviceSimulation.Domain
     {
         public virtual int Id { get; protected set; }
         public virtual string Description { get; set; }
+        public virtual byte Status { get; set; }
     }
 }

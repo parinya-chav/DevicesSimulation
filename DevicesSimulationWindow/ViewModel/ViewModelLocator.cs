@@ -45,7 +45,7 @@ namespace DevicesSimulationWindow.ViewModel
             SimpleIoc.Default.Register<IDeviceSimulatorService, DeviceSimulatorServiceAgent>();
             
             SimpleIoc.Default.Register<DeviceSimulatorViewModel>();
-            SimpleIoc.Default.Register<AddSimDevicesViewModel>();
+            //SimpleIoc.Default.Register<AddSimDevicesViewModel>();
             SimpleIoc.Default.Register<SimDeviceViewModel>();
             SimpleIoc.Default.Register<StatusWorkingModel>();
             SimpleIoc.Default.Register<HeaderDevicesSimulatorViewModel>();
@@ -79,7 +79,7 @@ namespace DevicesSimulationWindow.ViewModel
         /// </summary>
         public static void Cleanup()
         {
-
+            ServiceLocator.Current.GetInstance<DeviceSimulatorViewModel>().BeforeClose();
         }
     }
 }

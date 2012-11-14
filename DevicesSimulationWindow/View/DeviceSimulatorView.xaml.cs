@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 using GalaSoft.MvvmLight.Messaging;
+using DevicesSimulationWindow.ViewModel;
 
 namespace DevicesSimulationWindow.View
 {
@@ -23,7 +24,7 @@ namespace DevicesSimulationWindow.View
         public DeviceSimulatorView()
         {
             InitializeComponent();
-
+            Closing += (s, e) => ViewModelLocator.Cleanup();
             //Messenger.Default.Register<NotificationMessage>(this, NotificationMessageReceived);
         }
         private void NotificationMessageReceived(NotificationMessage msg)
