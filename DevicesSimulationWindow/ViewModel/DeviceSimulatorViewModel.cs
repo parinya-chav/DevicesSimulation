@@ -73,7 +73,7 @@ namespace DevicesSimulationWindow.ViewModel
             IconStartProperty = "Start-Disabled-icon.png";
             IconPauseProperty = "Pause-Disabled-icon.png";
             IconStopProperty = "Stop-Disabled-icon.png";
-
+            StartText = "Start";
 
             SendCommand = new RelayCommand(Send, new Func<bool>(() =>
             {
@@ -406,38 +406,26 @@ namespace DevicesSimulationWindow.ViewModel
         }
         public void Stop()
         {
+            IsRunning = false;
+
             _headerDevicesSimulatorViewModel.Status = 0;
             resetSimDevice();
-            Save();
-
-            IsRunning = false;
+            Save();            
         }
         public void Pause()
         {
-            if (_headerDevicesSimulatorViewModel.Status == 1 || _headerDevicesSimulatorViewModel.Status == 2)
-            {
-                if (_headerDevicesSimulatorViewModel.Status == 1)
-                    _headerDevicesSimulatorViewModel.Status = 2;
-                else
-                    _headerDevicesSimulatorViewModel.Status = 1;
+            if (_headerDevicesSimulatorViewModel.Status == 1)
+            {                
+                _headerDevicesSimulatorViewModel.Status = 2;                
                 
-                IsRunning = !IsRunning;
-                if (IsRunning)
-                {
-                    taskManage();
-                }
-                else
-                {
-                    var itemsSelect = SimDeviceList.Where(i => i.Status != 3);
-
-                    foreach (var item in itemsSelect)
-                    {
-                        item.Pause();
-                    }
-
-                    Save();
-                }
+                IsRunning = false;
                 
+                var itemsSelect = SimDeviceList.Where(i => i.Status != 3);
+                foreach (var item in itemsSelect)
+                {
+                    item.Pause();
+                }
+                Save();
             }
         }
         private bool validStop()
@@ -458,7 +446,7 @@ namespace DevicesSimulationWindow.ViewModel
         }
         private bool validPause()
         {
-            if (_headerDevicesSimulatorViewModel.Status == 1 || _headerDevicesSimulatorViewModel.Status == 2)
+            if (IsRunning && _headerDevicesSimulatorViewModel.Status == 1)
             {
                 IconPauseProperty = "Pause-icon.png";
                 return true;
@@ -471,19 +459,26 @@ namespace DevicesSimulationWindow.ViewModel
         }
         public bool validStart()
         {
-            if (SimDeviceList != null && !IsRunning)
+            if (!IsRunning && SimDeviceList != null && SimDeviceList.Count() > 0)
             {
-                if (_headerDevicesSimulatorViewModel.Status == 0 || _headerDevicesSimulatorViewModel.Status == 3)
+                if (_headerDevicesSimulatorViewModel.Status == 0 
+                    || _headerDevicesSimulatorViewModel.Status == 2
+                    || _headerDevicesSimulatorViewModel.Status == 3)
                 {
-                    if (SimDeviceList.Count() > 0)
+                    StartText = "Start";                    
+                    if (_headerDevicesSimulatorViewModel.Status == 2)
                     {
-                        if (SimDeviceList.Where(i => i.Status == 0).Count() > 0 ||
-                            SimDeviceList.Where(i => i.Status == 3).Count() == SimDeviceList.Count())
-                        {
-                            IconStartProperty = "Start-icon.png";
-                            return true;
-                        }
+                        StartText = "Continue";
                     }
+
+                    if (SimDeviceList.Where(i => i.Status == 0).Count() > 0 ||
+                        SimDeviceList.Where(i => i.Status == 2).Count() > 0 ||
+                        SimDeviceList.Where(i => i.Status == 3).Count() == SimDeviceList.Count())
+                    {
+                        IconStartProperty = "Start-icon.png";
+                        return true;
+                    }
+                   
                 }
             }
             IconStartProperty = "Start-Disabled-icon.png";
@@ -499,10 +494,21 @@ namespace DevicesSimulationWindow.ViewModel
             RaisePropertyChanged("IsRunning");
             }
         }
-        
+
+        private string _startText;
+        public string StartText
+        {
+            get
+            { return _startText; }
+            set { _startText = value;
+            RaisePropertyChanged("StartText");
+            }
+        }
         public void Start()
         {
-            if (_headerDevicesSimulatorViewModel.Status == 0 || _headerDevicesSimulatorViewModel.Status == 3)
+            if (_headerDevicesSimulatorViewModel.Status == 0 
+                || _headerDevicesSimulatorViewModel.Status == 2
+                || _headerDevicesSimulatorViewModel.Status == 3)
             {                
                 IsRunning = true;
 
@@ -510,9 +516,10 @@ namespace DevicesSimulationWindow.ViewModel
                 {
                     resetSimDevice();
                 }
-                _headerDevicesSimulatorViewModel.Status = 1;
-                Save();
 
+                _headerDevicesSimulatorViewModel.Status = 1;
+                Save();                
+                
                 taskManage();
             }
         }
@@ -545,7 +552,6 @@ namespace DevicesSimulationWindow.ViewModel
 
                                     Thread.Sleep(TimeSpan.FromSeconds(selected.SendTime));
                                 }
-                                //selected.Status = 0;
                             });
 
                             tasks.Add(task);

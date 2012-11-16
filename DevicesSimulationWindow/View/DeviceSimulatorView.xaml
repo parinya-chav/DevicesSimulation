@@ -77,7 +77,7 @@
                     </CheckBox>                    
                 </ToolBar>-->
                 <ToolBar>
-                    <Button ToolTip="Start" Command="{Binding StartCommand}">
+                    <Button ToolTip="{Binding StartText}" Command="{Binding StartCommand}">
                         <StackPanel>
                             <!--<Image Source="/Icons/Start-icon.png" />-->
                             <!--<Image Source="{Binding Path=IconStartProperty, Converter={StaticResource ImagePathConverter}}">                                                                                                               
