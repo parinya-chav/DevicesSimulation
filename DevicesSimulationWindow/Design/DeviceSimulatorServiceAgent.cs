@@ -83,14 +83,12 @@ namespace DevicesSimulationWindow.Design
             return statusWorking;
         }
 
-        Dictionary<int, SimDevice> _dicSimDevice = new Dictionary<int,SimDevice>();
-        object[] _deviceSim = new object[2];
+        DeviceSimulator _header = null;
 
         public string SendPacket(SimDeviceViewModel simDeviceViewModel)
         {
             string ret = "";
-
-            var simDevice = _dicSimDevice[simDeviceViewModel.Id];
+            var simDevice = _header.GetByChildId(simDeviceViewModel.Id);
 
             simDevice.SendComplete = simDeviceViewModel.SendComplete;
             simDevice.Status = simDeviceViewModel.Status;
@@ -149,20 +147,15 @@ namespace DevicesSimulationWindow.Design
         public DeviceSimulatorModel getSimDevicesByDeviceSimulatorId(int id)
         {
             var deviceSimulatorModel = new DeviceSimulatorModel();
-            var list = _deviceSimService.GetByIdDeviceSimulatorIncludeChild(id);
+            _header = _deviceSimService.GetByIdDeviceSimulatorIncludeChild(id);
 
-            if (list != null)
+            if (_header != null)
             {
-                _deviceSim[0] = list;
-                _deviceSim[1] = _dicSimDevice;
+                deviceSimulatorModel.Id = _header.Id;
+                deviceSimulatorModel.Description = _header.Description;
+                deviceSimulatorModel.Status = _header.Status;
 
-                deviceSimulatorModel.Id = list.Id;
-                deviceSimulatorModel.Description = list.Description;
-                deviceSimulatorModel.Status = list.Status;
-                
-                _dicSimDevice.Clear();
-
-                foreach (var item in list.SimDevices)
+                _header.SimDevices.ToList().ForEach(item =>
                 {
                     deviceSimulatorModel.SimDeviceViewModel.Add(new SimDeviceViewModel
                     {
@@ -173,14 +166,9 @@ namespace DevicesSimulationWindow.Design
                         SendTotal = item.SendTotal,
                         Status = item.Status,
                         SendComplete = item.SendComplete,
-
                     });
+                });
 
-                    if (!_dicSimDevice.ContainsKey(item.Id))
-                    {
-                        _dicSimDevice.Add(item.Id, item);
-                    }
-                }
             }
             return deviceSimulatorModel;
         }
@@ -228,29 +216,26 @@ namespace DevicesSimulationWindow.Design
             int result = 0;
             try
             {
-                if (_deviceSim[0] != null)
+                if (_header != null)
                 {
-                    //var oldDevice = _deviceSimService.GetByIdDeviceSimulatorIncludeChild(headerDevicesSimulatorViewModel.ID);
-                    var oldDevice = (DeviceSimulator)_deviceSim[0];
                     if (headerDevicesSimulatorViewModel != null)
                     {
-                        oldDevice.Description = headerDevicesSimulatorViewModel.HeadName;
-                        oldDevice.Status = headerDevicesSimulatorViewModel.Status;
-
-                        foreach (var itmNew in simDeviceViewModel)
+                        _header.Description = headerDevicesSimulatorViewModel.HeadName;
+                        _header.Status = headerDevicesSimulatorViewModel.Status;
+                                                
+                        foreach (var itmChange in simDeviceViewModel)
                         {
-                            if (itmNew.Id != 0)
+                            if (itmChange.Id != 0)
                             {
-                                //var oldSim = oldDevice.SimDevices.FirstOrDefault(p => p.Id == itmNew.Id);
-                                var oldSim = _dicSimDevice[itmNew.Id];
+                                var oldSim = _header.GetByChildId(itmChange.Id);
                                 if (oldSim != null)
                                 {
-                                    oldSim.Description = itmNew.Description;
+                                    oldSim.Description = itmChange.Description;
 
-                                    oldSim.SendComplete = itmNew.SendComplete;
-                                    oldSim.SendTime = itmNew.SendTime;
-                                    oldSim.SendTotal = itmNew.SendTotal;
-                                    oldSim.Status = itmNew.Status;
+                                    oldSim.SendComplete = itmChange.SendComplete;
+                                    oldSim.SendTime = itmChange.SendTime;
+                                    oldSim.SendTotal = itmChange.SendTotal;
+                                    oldSim.Status = itmChange.Status;
                                 }
 
                                 _session.Update(oldSim);
@@ -258,8 +243,7 @@ namespace DevicesSimulationWindow.Design
                             }
 
                         }
-
-                        result = oldDevice.Id;
+                        result = _header.Id;
                     }
                     else
                     {

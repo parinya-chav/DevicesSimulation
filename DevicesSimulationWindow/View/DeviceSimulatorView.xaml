@@ -4,7 +4,8 @@
         xmlns:local="clr-namespace:DevicesSimulationWindow.Extensions"
         Title="DeviceSimulatorView" Height="365" Width="600"
         DataContext="{Binding Main, Source={StaticResource Locator}}" 
-        xmlns:my="clr-namespace:DevicesSimulationWindow.View">
+        xmlns:my="clr-namespace:DevicesSimulationWindow.View"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <local:ImagePathConverter x:Key="ImagePathConverter"></local:ImagePathConverter>
         
@@ -78,9 +79,23 @@
                 <ToolBar>
                     <Button ToolTip="Start" Command="{Binding StartCommand}">
                         <StackPanel>
-                            <Image Source="/Icons/Start-icon.png" />
+                            <!--<Image Source="/Icons/Start-icon.png" />-->
                             <!--<Image Source="{Binding Path=IconStartProperty, Converter={StaticResource ImagePathConverter}}">                                                                                                               
                             </Image>-->
+                            <Image Width="16" Height="16" Margin="3,0" Source="/Icons/Start-icon.png">
+                                <Image.Style>
+                                    <Style TargetType="{x:Type Image}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding validStart}" Value="true">
+                                                <Setter Property="Source" Value="/Icons/Start-icon.png"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding validStart}" Value="false">
+                                                <Setter Property="Source" Value="/Icons/Start-Disabled-icon.png"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
                         </StackPanel>
                     </Button>
                     <Button ToolTip="Pause" Command="{Binding PauseCommand}">
@@ -131,7 +146,7 @@
                     </DataGridTextColumn>
                     
                     <DataGridTextColumn Header="Time(s)" Width="*" IsReadOnly="False"
-                                    Binding="{Binding Path=SendTime}" SortDirection="{x:Null}">
+                                    Binding="{Binding Path=SendTime, Mode= TwoWay, UpdateSourceTrigger=PropertyChanged}" SortDirection="{x:Null}">
                     </DataGridTextColumn>
 
                     <DataGridTemplateColumn Width="*" Header="Complete" IsReadOnly="False">
@@ -168,15 +183,7 @@
                                                         Path=DataContext.StatusWorkingList}"/>
                             </Style>
                         </DataGridComboBoxColumn.EditingElementStyle>
-                    </DataGridComboBoxColumn>
-
-                    <DataGridTemplateColumn Width="*" Header="Finish" IsReadOnly="True">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Path=IsFinish}" TextAlignment="Center"></TextBlock>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    </DataGridComboBoxColumn>                   
 
                 </DataGrid.Columns>
                         

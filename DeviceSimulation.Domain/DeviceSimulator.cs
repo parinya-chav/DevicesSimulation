@@ -29,5 +29,11 @@ namespace DeviceSimulation.Domain
             }
         }
 
+        public virtual SimDevice GetByChildId(int simDeviceId)
+        {
+            return SimDevices.Where(s => s.Id == simDeviceId).FirstOrDefault();
+        }
+
+
     }
 }

@@ -43,16 +43,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Laurent Bugnion (GalaSoft)\Mvvm Light Toolkit\Binaries\WPF4\GalaSoft.MvvmLight.Extras.WPF4.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Laurent Bugnion (GalaSoft)\Mvvm Light Toolkit\Binaries\WPF4\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Interactivity">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Laurent Bugnion (GalaSoft)\Mvvm Light Toolkit\Binaries\WPF4\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Presentation" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -70,12 +68,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ChildWindow.xaml.cs">
+      <DependentUpon>ChildWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Design\DesignDataService.cs" />
+    <Compile Include="Extend\ChildWindow.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
     <Compile Include="Model\IDataService.cs" />
+    <Compile Include="ViewModel\ChildWindowViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Page Include="ChildWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

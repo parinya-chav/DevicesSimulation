@@ -25,3 +25,5 @@ D:\github_new20120612\DevicesSimulation\DevicesSimulation\MvvmLight1\obj\Debug\G
 D:\github_new20120612\DevicesSimulation\DevicesSimulation\MvvmLight1\obj\Debug\GenerateResource.write.1.tlog
 D:\github_new20120612\DevicesSimulation\DevicesSimulation\MvvmLight1\obj\Debug\MvvmLight1.exe
 D:\github_new20120612\DevicesSimulation\DevicesSimulation\MvvmLight1\obj\Debug\MvvmLight1.pdb
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\MvvmLight1\obj\Debug\ChildWindow.baml
+D:\github_new20120612\DevicesSimulation\DevicesSimulation\MvvmLight1\obj\Debug\ChildWindow.g.cs

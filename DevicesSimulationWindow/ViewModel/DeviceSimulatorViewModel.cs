@@ -34,7 +34,6 @@ namespace DevicesSimulationWindow.ViewModel
 
         RelayCommand showAddCommand;
         RelayCommand deleteCommand;
-        RelayCommand selectAllCommand;
         RelayCommand startCommand;
         RelayCommand pauseCommand;
         RelayCommand stopCommand;
@@ -71,7 +70,6 @@ namespace DevicesSimulationWindow.ViewModel
             _statusWorkingList = deviceSimulatorService.GetAllStatusWorking();
             
             //Set pic control
-            _iconSaveProperty = "Save-disable-icon.png";
             IconStartProperty = "Start-Disabled-icon.png";
             IconPauseProperty = "Pause-Disabled-icon.png";
             IconStopProperty = "Stop-Disabled-icon.png";
@@ -312,7 +310,7 @@ namespace DevicesSimulationWindow.ViewModel
         }
         public void Open()
         {
-            var view = new LoadDeviceSimulatorView();
+            var view = new LoadDeviceSimulatorView();    
             view.DataContext = _loadDeviceSimulatorViewModel;
             _loadDeviceSimulatorViewModel.DeviceSimulatorList = _deviceSimulatorService.GetAllDeviceSimulator();
             view.ShowDialog();
@@ -471,7 +469,7 @@ namespace DevicesSimulationWindow.ViewModel
                 return false;
             }
         }
-        private bool validStart()
+        public bool validStart()
         {
             if (SimDeviceList != null && !IsRunning)
             {

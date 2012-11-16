@@ -18,7 +18,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid x:Name="LayoutRoot">
+    <StackPanel x:Name="LayoutRoot">
 
         <TextBlock FontSize="36"
                    FontWeight="Bold"
@@ -27,6 +27,7 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    TextWrapping="Wrap" />
+        <Button>Show</Button>
 
-    </Grid>
+    </StackPanel>
 </Window>
